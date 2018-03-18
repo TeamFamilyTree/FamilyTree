@@ -1,0 +1,15 @@
+
+.top-bar {
+    color: burlywood;
+}
+
+p {
+    background-color: burlywood;
+    color: green;
+    font-size: 30px;
+}
+
+img {
+    height: 40px;
+    width: 50px;
+}
