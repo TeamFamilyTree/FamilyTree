@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Tree
+from .models import Tree, Person
 
 class TreeForm(forms.ModelForm):
 	
@@ -13,3 +13,10 @@ class TreeForm(forms.ModelForm):
 		labels = {
 			'name': 'اسم العائلة:',
 		}
+
+class PersonForm(forms.ModelForm):
+
+	class Meta:
+		model = Person
+		fields = ('first_name', 'last_name', 'prefix', 'gender',
+			'alive', 'married',)

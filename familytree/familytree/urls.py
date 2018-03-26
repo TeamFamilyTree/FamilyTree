@@ -20,5 +20,6 @@ from app import views
 urlpatterns = [
 	path('', views.index, name='index'),
 	path('tree/new/', views.tree_new, name='tree_new'),
+    path('tree/<int:pk>/', views.TreeDetailView.as_view(), name='tree_detail'),
     path('admin/', admin.site.urls),
 ]
