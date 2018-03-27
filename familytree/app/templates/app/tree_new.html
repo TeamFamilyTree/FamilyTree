@@ -1,0 +1,10 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+<h4> إنشاء شجرة جديدة </h4>
+
+<form method="POST">{% csrf_token %}
+	{{ form.as_p }}
+	<button type="submit">إنشاء</button>
+</form>
+{% endblock %}
