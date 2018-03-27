@@ -1,15 +1,96 @@
 
-.top-bar {
-    color: burlywood;
+* {
+   /* to be decided: font-family: */
+}
+/* Element Selectors ------------ */
+
+/* Color Pallet:
+    #585b6d -> Dark Grey
+    #999f9a -> Grey
+    #abc9be -> Pastel Green
+    #d5a5a5 -> Pink
+    #e8d7bd -> Biege
+*/
+
+
+body {
+    background-color: #e6e6e6;
+
+}
+
+header {
+    background-color: #999f9a;
+    padding-bottom: 2%;
+    padding-top: 5%;
+}
+
+
+div {
+   margin: 5%;
+
 }
 
 p {
-    background-color: burlywood;
-    color: green;
-    font-size: 30px;
+
 }
 
-img {
-    height: 40px;
-    width: 50px;
+
+
+h1 {
+    color: #999f9a;
+
+}
+
+h2 {
+    color: #999f9a;
+    font-style: bold;
+}
+
+
+
+form {
+
+}
+
+button {
+    background-color: #d5a5a5;
+    padding: 2%;
+    margin: 2%;
+    color: #e8d7bd;
+}
+
+
+footer {
+    color: #585b6d;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    text-align: left;
+    font-size: 90%;
+    padding: 2%;
+    background-color:
+
+}
+
+
+/* Class Selectors ------------ */
+
+.title {
+    color: #e8d7bd ;
+    padding: 2%;
+    font-size: 30px;
+    font-style: bold;
+
+}
+
+.intro {
+    color: #585b6d;
+}
+
+/* iD Selectors ------------ */
+
+
+form {
+    margin-top: 15%;
 }

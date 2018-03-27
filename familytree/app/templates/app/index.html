@@ -1,5 +1,23 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
-<p> Homepage content goes here </p>
-{% endblock %}
+<div>
+            <p class="intro">موقع شجرة العائلة هو موقع ............................................................
+            </p>
+        </div>
+
+       <div>
+            <h2> ابحث عن شجرة</h2>
+            <form>
+                <fieldset>
+                    <input type="text" id="search" name="name_search">
+                    <button>بحث</button>
+                </fieldset>
+                <fieldset>
+                    <button>استعراض كل الأشجار</button>
+                    <button> إضافة شجرة جديدة</button>
+                </fieldset>
+
+           </form>
+        </div>
+        {% endblock %}
