@@ -2,4 +2,5 @@
 
 {% block content %}
 <h3>Tree name: {{ tree.name }}</h3>
+<a href="{% url 'person_new' pk=0 %}">Add new person</a>
 {% endblock %}

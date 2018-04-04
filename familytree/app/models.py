@@ -11,7 +11,7 @@ class Person(models.Model):
 	)
 	tree = models.ForeignKey('Tree', related_name='tree', on_delete=models.PROTECT)
 	first_name = models.CharField(max_length=50)
-	last_name = models.CharField(max_length=50)
+	last_name = models.CharField(max_length=50, null=True)
 	prefix = models.CharField(max_length=50, null=True)
 	father = models.ForeignKey('Person', related_name='person_father', on_delete=models.PROTECT, null=True)
 	mother = models.ForeignKey('Person', related_name='person_mother', on_delete=models.PROTECT, null=True)
