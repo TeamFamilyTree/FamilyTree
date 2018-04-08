@@ -4,10 +4,26 @@
 
 <h3>Person name: {{ person.first_name }}</h3>
 
-{% if person.gender == "f" %}
-<a href="{% url 'husband_new' wife_pk=person.id %}">Add new husband</a>
-{% else %}
-<a href="{% url 'wife_new' husband_pk=person.id %}">Add new wife</a>
-{% endif %}
+<!-- New Marriage button -->
+<a href="{% url 'marriage_new' person_id=person.id %}">Add new marriage</a>
+
+<!-- List of marriages and children -->
+<table>
+	<tr>
+		<th> Spouse </th>
+		<th> Children </th>
+	</tr>
+	{% for marriage in marriage_list %}
+	<tr>
+		<td>	{% if person.gender == "f" %}
+				{{ marriage.husband.first_name }}
+				{% else %}
+				{{ marriage.wife.first_name }}
+				{% endif %}
+		</td>
+		<td> list children here </td>
+	</tr>
+	{% endfor %}
+</table>
 
 {% endblock %}

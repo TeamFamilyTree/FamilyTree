@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
 from .forms import TreeForm, PersonForm, NewWifeForm, NewHusbandForm
@@ -23,34 +23,45 @@ class TreeDetailView(generic.DetailView):
 	model = Tree
 	template_name = 'app/tree_detail.html'
 
-class PersonDetailView(generic.DetailView):
-	model = Person
-	template_name = 'app/person_detail.html'
+#class PersonDetailView(generic.DetailView):
+#	model = Person
+#	template_name = 'app/person_detail.html'
 
-def husband_new(request, wife_pk):
-	if request.method == "POST":
-		form = NewHusbandForm(request.POST)
-		if form.is_valid():
-			marriage = form.save(commit=False)
-			marriage.wife = Person.objects.get(pk=wife_pk)
-			marriage.save()
-			return redirect('index')
+def person_detail(request, person_id):
+	person = get_object_or_404(Person, pk=person_id)
+	if person.gender == "f":
+		marriage_list = Marriage.objects.filter(wife=person)
 	else:
-		form = NewHusbandForm()
+		marriage_list = Marriage.objects.filter(husband=person)
+	context = {
+		'person': person,
+		'marriage_list': marriage_list,
+	}
+	return render(request, 'app/person_detail.html', context)
+
+def marriage_new(request, person_id):
+	person = Person.objects.get(pk=person_id)
+	if (Person.is_female(person)):
+		if request.method == "POST":
+			form = NewHusbandForm(request.POST)
+			if form.is_valid():
+				marriage = form.save(commit=False)
+				marriage.wife = person
+				marriage.save()
+				return redirect('person_detail', pk = person.pk)
+		else:
+			form = NewHusbandForm()
+	else:
+		if request.method == "POST":
+			form = NewWifeForm(request.POST)
+			if form.is_valid():
+				marriage = form.save(commit=False)
+				marriage.husband = person
+				marriage.save()
+				return redirect('index')
+		else:
+			form = NewWifeForm()
 	return render(request, 'app/marriage_new.html', {'form': form})
-
-def wife_new(request, husband_pk):
-	if request.method == "POST":
-		form = NewWifeForm(request.POST)
-		if form.is_valid():
-			marriage = form.save(commit=False)
-			marriage.husband = Person.objects.get(pk=husband_pk)
-			marriage.save()
-			return redirect('index')
-	else:
-		form = NewWifeForm()
-	return render(request,'app/marriage_new.html', {'form': form})
-
 
 # def person_new(request):
 # 	if request.method == "POST":
@@ -63,4 +74,3 @@ def wife_new(request, husband_pk):
 # 	else:
 # 		form = MarriageForm()
 # 	return render(request, 'app/marriage_new.html', {'form': form})
-

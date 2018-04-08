@@ -21,9 +21,10 @@ urlpatterns = [
 	path('', views.index, name='index'),
 	path('tree/new/', views.tree_new, name='tree_new'),
     path('tree/<int:pk>/', views.TreeDetailView.as_view(), name='tree_detail'),
-    path('person/<int:wife_pk>/newhusband/', views.husband_new, name='husband_new'),
-    path('person/<int:husband_pk>/newwife/', views.wife_new, name='wife_new'),
+    path('person/<int:person_id>/', views.person_detail, name='person_detail'),
+    #path('person/<int:wife_id>/newhusband/', views.husband_new, name='husband_new'),
+    #path('person/<int:husband_id>/newwife/', views.wife_new, name='wife_new'),
+    path('person/<int:person_id>/newmarriage/', views.marriage_new, name='marriage_new'),
     #path('tree/<int:marriage_pk>/newperson/', views.person_new, name='person_new'),
-    path('person/<int:pk>/', views.PersonDetailView.as_view(), name='person_detail'),
     path('admin/', admin.site.urls),
 ]
