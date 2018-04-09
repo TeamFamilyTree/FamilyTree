@@ -47,8 +47,9 @@ def marriage_new(request, person_id):
 			if form.is_valid():
 				marriage = form.save(commit=False)
 				marriage.wife = person
+				marriage.tree = person.tree
 				marriage.save()
-				return redirect('person_detail', pk = person.pk)
+				return redirect('person_detail', person_id = person.pk)
 		else:
 			form = NewHusbandForm()
 	else:
@@ -57,20 +58,26 @@ def marriage_new(request, person_id):
 			if form.is_valid():
 				marriage = form.save(commit=False)
 				marriage.husband = person
+				marriage.tree = person.tree
 				marriage.save()
-				return redirect('index')
+				return redirect('person_detail', person_id = person.pk)
 		else:
 			form = NewWifeForm()
 	return render(request, 'app/marriage_new.html', {'form': form})
 
-# def person_new(request):
-# 	if request.method == "POST":
-# 		form = PersonForm(request.POST)
-# 		if form.is_valid():
-# 			person = form.save()
-# 			#if not self.kwargs['pk'] == '0':
-# 			#	person.father = self.kwargs['pk']
-# 			return redirect('index')
-# 	else:
-# 		form = MarriageForm()
-# 	return render(request, 'app/marriage_new.html', {'form': form})
+def person_new(request, marriage_id):
+	if request.method == "POST":
+		form = PersonForm(request.POST)
+		if form.is_valid():
+			parents = Marriage.objects.get(pk=marriage_id)
+			person = form.save(commit=False)
+			person.mother = parents.wife
+			person.father = parents.husband
+			person.tree = parents.tree
+			person.save()
+			#if not self.kwargs['pk'] == '0':
+			#	person.father = self.kwargs['pk']
+			return redirect('person_detail', person_id = person.pk)
+	else:
+		form = PersonForm()
+	return render(request, 'app/person_new.html', {'form': form})

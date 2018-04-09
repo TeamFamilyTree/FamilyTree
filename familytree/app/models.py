@@ -38,5 +38,6 @@ class Person(models.Model):
 class Marriage(models.Model):
 	class Meta:
 		unique_together = (('husband', 'wife'),)
+	tree = models.ForeignKey('Tree', related_name='marriage_tree', on_delete=models.PROTECT)
 	husband = models.ForeignKey('Person', related_name='marriage_husband', on_delete=models.PROTECT)
 	wife = models.ForeignKey('Person', related_name='marriage_wife', on_delete=models.PROTECT)

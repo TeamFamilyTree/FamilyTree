@@ -19,7 +19,7 @@ class PersonForm(forms.ModelForm):
 	class Meta:
 		model = Person
 		fields = ('first_name', 'last_name', 'prefix', 'gender',
-			'alive', 'married',)
+			'alive')
 
 class NewHusbandForm(forms.ModelForm):
 

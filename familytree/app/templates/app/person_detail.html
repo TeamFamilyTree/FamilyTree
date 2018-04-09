@@ -21,7 +21,8 @@
 				{{ marriage.wife.first_name }}
 				{% endif %}
 		</td>
-		<td> list children here </td>
+		<td> <a href="{% url 'person_new' marriage_id=marriage.id %}">
+			Add new child</a> </td>
 	</tr>
 	{% endfor %}
 </table>

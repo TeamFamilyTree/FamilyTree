@@ -22,9 +22,7 @@ urlpatterns = [
 	path('tree/new/', views.tree_new, name='tree_new'),
     path('tree/<int:pk>/', views.TreeDetailView.as_view(), name='tree_detail'),
     path('person/<int:person_id>/', views.person_detail, name='person_detail'),
-    #path('person/<int:wife_id>/newhusband/', views.husband_new, name='husband_new'),
-    #path('person/<int:husband_id>/newwife/', views.wife_new, name='wife_new'),
     path('person/<int:person_id>/newmarriage/', views.marriage_new, name='marriage_new'),
-    #path('tree/<int:marriage_pk>/newperson/', views.person_new, name='person_new'),
+    path('marriage/<int:marriage_id>/newperson/', views.person_new, name='person_new'),
     path('admin/', admin.site.urls),
 ]
