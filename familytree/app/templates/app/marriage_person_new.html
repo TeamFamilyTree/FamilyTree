@@ -1,11 +1,10 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
-<h4> New marriage </h4>
+<h4> New marriage to a new person </h4>
 
 <form method="POST">{% csrf_token %}
 	{{ form.as_p }}
 	<input type="submit" value="إنشاء">
 </form>
-<a href="{% url 'marriage_to_new_person' person_id=person_id %}">Person is not in the tree</a>
 {% endblock %}

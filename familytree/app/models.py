@@ -15,8 +15,8 @@ class PersonQuerySet(models.QuerySet):
 
 class Person(models.Model):
 	GENDER_CHOICES = (
-		('F', 'Female'),
-		('M', 'Male'),
+		('f', 'Female'),
+		('m', 'Male'),
 	)
 	tree = models.ForeignKey('Tree', related_name='tree', on_delete=models.PROTECT)
 	first_name = models.CharField(max_length=50)
@@ -33,7 +33,12 @@ class Person(models.Model):
 	date_added = models.DateField(null=True)
 	date_last_updated = models.DateField(null=True)
 	def __str__(self):
-		return self.first_name + "" + father.first_name
+		try:
+			prop = ' بن ' if self.gender == 'm' else ' بنت '
+			string = self.first_name + prop + self.father.first_name
+		except:
+			string = self.first_name
+		return string
 
 class Marriage(models.Model):
 	class Meta:
