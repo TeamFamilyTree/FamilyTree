@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
-from .forms import TreeForm, PersonForm, NewWifeForm, NewHusbandForm, MarriageToNewPersonForm
+from .forms import *
 from .models import Tree, Person, Marriage
 
 def index(request):
@@ -19,13 +19,21 @@ def tree_new(request):
 		form = TreeForm()
 	return render(request, 'app/tree_new.html', {'form': form})
 
-class TreeDetailView(generic.DetailView):
-	model = Tree
-	template_name = 'app/tree_detail.html'
+# class TreeDetailView(generic.DetailView):
+# 	model = Tree
+# 	template_name = 'app/tree_detail.html'
 
-#class PersonDetailView(generic.DetailView):
-#	model = Person
-#	template_name = 'app/person_detail.html'
+def tree_detail(request, tree_id):
+	tree = get_object_or_404(Tree, pk=tree_id)
+	if (Person.objects.filter(tree=tree).filter(is_root=True).count() == 1):
+		root = Person.objects.filter(tree=tree).get(is_root=True)
+	else:
+		root = None
+	context = {
+		'tree': tree,
+		'root': root,
+	}
+	return render(request, 'app/tree_detail.html', context)
 
 def person_detail(request, person_id):
 	person = get_object_or_404(Person, pk=person_id)
@@ -56,6 +64,8 @@ def marriage_new(request, person_id):
 				return redirect('person_detail', person_id = person.pk)
 		else:
 			form = NewHusbandForm()
+			form.fields["husband"].queryset = Person.objects.filter(gender="m")
+			# To do: exclude person's spouses from list
 	else:
 		if request.method == "POST":
 			form = NewWifeForm(request.POST)
@@ -71,6 +81,8 @@ def marriage_new(request, person_id):
 				return redirect('person_detail', person_id = person.pk)
 		else:
 			form = NewWifeForm()
+			form.fields["wife"].queryset = Person.objects.filter(gender="f")
+			# To do: exclude person's spouses from list
 	return render(request, 'app/marriage_new.html', {'form': form, 'person_id': person_id})
 
 def marriage_to_new_person(request, person_id):
@@ -125,9 +137,35 @@ def person_new(request, marriage_id):
 			person.father = parents.husband
 			person.tree = parents.tree
 			person.save()
-			#if not self.kwargs['pk'] == '0':
-			#	person.father = self.kwargs['pk']
 			return redirect('person_detail', person_id = person.pk)
 	else:
 		form = PersonForm()
 	return render(request, 'app/person_new.html', {'form': form})
+
+def tree_root_new(request, tree_id):
+	if request.method == "POST":
+		form = RootPersonForm(request.POST)
+		if form.is_valid():
+			#if person.tree.has_root
+			person = form.save(commit=False)
+			person.tree = Tree.objects.get(pk=tree_id)
+			person.alive = False
+			person.gender = "m"
+			person.is_root = True
+			person.save()
+			return redirect('tree_detail', tree_id = tree_id)
+	else:
+		form = RootPersonForm()
+	return render(request, 'app/tree_root_new.html', {'form': form})
+
+def person_set_branch(request, person_id):
+	person = Person.objects.get(pk=person_id)
+	person.is_branch = True
+	person.save()
+	return redirect('person_detail', person_id = person.pk)
+
+def person_remove_branch(request, person_id):
+	person = Person.objects.get(pk=person_id)
+	person.is_branch = False
+	person.save()
+	return redirect('person_detail', person_id = person.pk)

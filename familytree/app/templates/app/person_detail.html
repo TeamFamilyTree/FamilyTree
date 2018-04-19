@@ -5,7 +5,12 @@
 <h3>Person name: {{ person.first_name }}</h3>
 
 <!-- New Marriage button -->
-<a href="{% url 'marriage_new' person_id=person.id %}">Add new marriage</a>
+<a href="{% url 'marriage_new' person_id=person.id %}">Add new marriage</a><br>
+{% if person.is_branch %}
+<a href="{% url 'person_remove_branch' person_id=person.id %}">Remove person as branch</a><br>
+{% else %}
+<a href="{% url 'person_set_branch' person_id=person.id %}">Set person as branch</a><br>
+{% endif %}
 
 <!-- List of marriages and children -->
 <table>

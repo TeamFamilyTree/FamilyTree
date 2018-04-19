@@ -3,6 +3,11 @@ from django.db import models
 # Create your models here.
 class Tree(models.Model):
 	name = models.CharField(max_length=50)
+	def has_root():
+		if Person.objects.filter(tree=self).filter(is_root=True).count() == 0:
+			return False
+		else:
+			return True
 
 class PersonQuerySet(models.QuerySet):
 	def branches(self):
@@ -30,6 +35,7 @@ class Person(models.Model):
 	dod = models.DateField(null=True)
 	married = models.BooleanField(default=False)
 	is_branch = models.BooleanField(default=False)
+	is_root = models.BooleanField(default=False)
 	date_added = models.DateField(null=True)
 	date_last_updated = models.DateField(null=True)
 	def __str__(self):

@@ -18,12 +18,23 @@ from django.urls import path
 from app import views
 
 urlpatterns = [
-	path('', views.index, name='index'),
+    # Homepage
+    path('', views.index, name='index'),
+
+    # Tree
 	path('tree/new/', views.tree_new, name='tree_new'),
-    path('tree/<int:pk>/', views.TreeDetailView.as_view(), name='tree_detail'),
+    path('tree/<int:tree_id>/', views.tree_detail, name='tree_detail'),
+    path('tree/<int:tree_id>/addroot', views.tree_root_new, name='tree_root_new'),
+
+    # Person
     path('person/<int:person_id>/', views.person_detail, name='person_detail'),
+    path('person/<int:person_id>/setbranch', views.person_set_branch, name='person_set_branch'),
+    path('person/<int:person_id>/removebranch', views.person_remove_branch, name='person_remove_branch'),
+    path('marriage/<int:marriage_id>/newperson/', views.person_new, name='person_new'),
+
+    # Marriage
     path('person/<int:person_id>/newmarriage/', views.marriage_new, name='marriage_new'),
     path('person/<int:person_id>/newmarriage/newperson', views.marriage_to_new_person, name='marriage_to_new_person'),
-    path('marriage/<int:marriage_id>/newperson/', views.person_new, name='person_new'),
+    
     path('admin/', admin.site.urls),
 ]
