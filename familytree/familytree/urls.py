@@ -21,5 +21,9 @@ urlpatterns = [
 	path('', views.index, name='index'),
 	path('tree/new/', views.tree_new, name='tree_new'),
     path('tree/<int:pk>/', views.TreeDetailView.as_view(), name='tree_detail'),
+    path('person/<int:person_id>/', views.person_detail, name='person_detail'),
+    path('person/<int:person_id>/newmarriage/', views.marriage_new, name='marriage_new'),
+    path('person/<int:person_id>/newmarriage/newperson', views.marriage_to_new_person, name='marriage_to_new_person'),
+    path('marriage/<int:marriage_id>/newperson/', views.person_new, name='person_new'),
     path('admin/', admin.site.urls),
 ]

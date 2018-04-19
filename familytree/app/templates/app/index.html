@@ -1,29 +1,25 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
-<<<<<<< HEAD
 <div>
-            <p class="intro">موقع شجرة العائلة هو موقع ............................................................
-            </p>
-        </div>
+    <p class="intro">موقع شجرة العائلة هو موقع ............................................................
+    </p>
+</div>
 
-       <div>
-            <h2> ابحث عن شجرة</h2>
-            <form>
-                <fieldset>
-                    <input type="text" id="search" name="name_search">
-                    <button>بحث</button>
-                </fieldset>
-                <fieldset>
-                    <button>استعراض كل الأشجار</button>
-                    <button> إضافة شجرة جديدة</button>
-                </fieldset>
+<div>
+    <h2> ابحث عن شجرة</h2>
+    <form>
+        <fieldset>
+            <input type="text" id="search" name="name_search">
+            <button>بحث</button>
+        </fieldset>
+        <fieldset>
+            <button>استعراض كل الأشجار</button>
+            <button> إضافة شجرة جديدة</button>
+        </fieldset>
 
-           </form>
-        </div>
-        {% endblock %}
-=======
-<p> Homepage content goes here </p>
+   </form>
+</div>
+
 <a href="{% url 'tree_new' %}">Create a New Family Tree</a>
 {% endblock %}
->>>>>>> 35326cbe66ca1c79b4508026bb8a8a48c320486c

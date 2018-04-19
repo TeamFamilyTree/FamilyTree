@@ -1,0 +1,30 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+<h3>Person name: {{ person.first_name }}</h3>
+
+<!-- New Marriage button -->
+<a href="{% url 'marriage_new' person_id=person.id %}">Add new marriage</a>
+
+<!-- List of marriages and children -->
+<table>
+	<tr>
+		<th> Spouse </th>
+		<th> Children </th>
+	</tr>
+	{% for marriage in marriage_list %}
+	<tr>
+		<td>	{% if person.gender == "f" %}
+				{{ marriage.husband.first_name }}
+				{% else %}
+				{{ marriage.wife.first_name }}
+				{% endif %}
+		</td>
+		<td> <a href="{% url 'person_new' marriage_id=marriage.id %}">
+			Add new child</a> </td>
+	</tr>
+	{% endfor %}
+</table>
+
+{% endblock %}
