@@ -2,10 +2,8 @@
 
 {% block content %}
 
-<div class="grid-x">
-    <div class="cell small-2 medium-3 large-4">
-    </div>
-    <div class="cell small-8 medium-6 large-4">
+<div>
+    <div>
         <h2> إنشاء شجرة جديدة </h2>
 
         <form method="POST">{% csrf_token %}
@@ -14,4 +12,5 @@
         </form>
     </div>
 </div>
+  
 {% endblock %}

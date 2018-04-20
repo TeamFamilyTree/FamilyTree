@@ -7,15 +7,16 @@
   <div class="medium-6 large-8 cell"></div>
 </div> -->
 <div>
-    <div>
-        <form method="POST">{% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="إنشاء">
-        </form>
-        <a href="{% url 'marriage_to_new_person' person_id=person_id %}">Person is not in the tree</a>
-        {% endblock %}
-    
-    </div>
+    <h1> زواج جديد </h1>
+        <div>
+            <form method="POST">{% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="إنشاء">
+            </form>
+            <a href="{% url 'marriage_to_new_person' person_id=person_id %}" class="button">الشخص غير موجود في الشجرة</a>
+            {% endblock %}
+
+        </div>
 </div>
-<h1> زواج جديد </h1>
+
 

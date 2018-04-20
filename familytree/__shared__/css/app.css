@@ -107,13 +107,13 @@ table {
 
 .success.button {
     background-color: #d5a5a5;
-   color: #e8d7bd; 
+    color: #e8d7bd; 
 }
 
 .introduction {
     border-style: solid;
     border-width: thin;
-    border-color: #585b6d;
+    border-color: #abc9be;
     padding: 1rem;
     margin: 0.5rem;
     
