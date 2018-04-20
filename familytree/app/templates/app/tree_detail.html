@@ -16,6 +16,19 @@
             </fieldset>
         </form>
 </div>
+<hr>
+<div>
+    <p>اختر عدد الأجيال للتصفح:</p>
+    <ul class="dropdown menu" data-dropdown-menu>
+        <li><a href="{% url 'tree_detail' tree_id=tree.pk browse_depth=2 %}">2</a></li>
+        <li><a href="{% url 'tree_detail' tree_id=tree.pk browse_depth=3 %}">3</a></li>
+        <li><a href="{% url 'tree_detail' tree_id=tree.pk browse_depth=4 %}">4</a></li>
+        <li><a href="{% url 'tree_detail' tree_id=tree.pk browse_depth=5 %}">5</a></li>
+    </ul>
+
+    {% for d in desc_list %}
+    <p><a href="{% url 'person_detail' person_id=d.1.pk %}">{{ d.0 }} {{ d.1.first_name }}</a></p>
+    {% endfor %}
 <div>
     <h2> تصفح بالفرع:</h2>
     <ul>

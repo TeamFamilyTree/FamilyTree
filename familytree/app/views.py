@@ -19,17 +19,15 @@ def tree_new(request):
 		form = TreeForm()
 	return render(request, 'app/tree_new.html', {'form': form})
 
-# class TreeDetailView(generic.DetailView):
-# 	model = Tree
-# 	template_name = 'app/tree_detail.html'
-
-def tree_detail(request, tree_id):
+def tree_detail(request, tree_id, browse_depth=3):
 	tree = get_object_or_404(Tree, pk=tree_id)
 	if (Tree.has_root(tree)):
 		root = Person.objects.filter(tree=tree).get(is_root=True)
+		desc_list = root.descendants_list(browse_depth)
 		context = {
 		'tree': tree,
 		'root': root,
+		'desc_list': desc_list,
 		}
 		return render(request, 'app/tree_detail.html', context)
 	else:

@@ -13,19 +13,19 @@ class PersonQuerySet(models.QuerySet):
 		return self.filter(gender='m')
 	def women(self):
 		return self.filter(gender='f')
-	def first_gen(self, tid):
-		root = self.root(tid=tid)
+	def first_gen(self, tree_id):
+		root = self.root(tree_id=tree_id)
 		return self.filter(father=root)
-	# def gen_n(self, tid, n):
-	# 	root = self.root(tid=tid)
+	# def gen_n(self, tree_id, n):
+	# 	root = self.root(tree_id=tree_id)
 	# 	i = 1
 	# 	if n == i:
 	# 		for n
-	def root(self, tid):
-		tree = Tree.objects.get(pk=tid)
+	def root(self, tree_id):
+		tree = Tree.objects.get(pk=tree_id)
 		return self.filter(tree=tree).get(is_root=True)
-	def tree(self, tid):
-		tree = Tree.objects.get(pk=tid)
+	def tree(self, tree_id):
+		tree = Tree.objects.get(pk=tree_id)
 		return self.filter(tree=tree)
 
 # Default Manager class for Person model (uses QuerySets defined in PersonQuerySet)
@@ -62,7 +62,6 @@ class Person(models.Model):
 	is_root = models.BooleanField(default=False)
 	date_added = models.DateField(null=True)
 	date_last_updated = models.DateField(null=True)
-	#blood_relative = models.BooleanField(default=True) or "same family"
 	objects = PersonManager()
 	family = FamilyManager()
 
@@ -79,6 +78,20 @@ class Person(models.Model):
 		else:
 			return [m.wife for m in self.husband_of.all()]
 
+	def descendants(self):
+		for child in self.children():
+			yield child
+			yield from child.descendants()
+
+	def descendants_list(self, depth, count=0, d_list=None):
+		if d_list is None:
+			d_list = []
+		if depth != 0 :
+			for child in self.children():
+				d_list.append([("\xa0" * count), child])
+				child.descendants_list(depth-1, count+1, d_list)
+			return d_list
+	
 	def name(self):
 		try:
 			prop = ' بن ' if self.gender == 'm' else ' بنت '
