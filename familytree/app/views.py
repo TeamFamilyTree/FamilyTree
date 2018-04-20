@@ -25,15 +25,16 @@ def tree_new(request):
 
 def tree_detail(request, tree_id):
 	tree = get_object_or_404(Tree, pk=tree_id)
-	if (Person.objects.filter(tree=tree).filter(is_root=True).count() == 1):
+	if (Tree.has_root(tree)):
 		root = Person.objects.filter(tree=tree).get(is_root=True)
-	else:
-		root = None
-	context = {
+		context = {
 		'tree': tree,
 		'root': root,
-	}
-	return render(request, 'app/tree_detail.html', context)
+		}
+		return render(request, 'app/tree_detail.html', context)
+	else:
+		form = RootPersonForm()
+		return render(request, 'app/tree_root_new.html', {'form': form})
 
 def person_detail(request, person_id):
 	person = get_object_or_404(Person, pk=person_id)
