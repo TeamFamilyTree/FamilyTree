@@ -1,25 +1,38 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
-<div>
-    <p class="intro">موقع شجرة العائلة هو موقع ............................................................
-    </p>
-</div>
+
+<!-- <div class="grid-x grid-margin-x">
+  <div class="medium-6 large-4 cell"></div>
+  <div class="medium-6 large-8 cell"></div>
+</div> -->
 
 <div>
-    <h2> ابحث عن شجرة</h2>
-    <form>
-        <fieldset>
-            <input type="text" id="search" name="name_search">
-            <button>بحث</button>
-        </fieldset>
-        <fieldset>
-            <button>استعراض كل الأشجار</button>
-            <a href="{% url 'tree_new' %}">إضافة شجرة جديدة</a
-        </fieldset>
-
-   </form>
+    <div>
+        <p class="introduction"> هو موقع هدفه زيادة الروابط بين أفراد الأسرة وذلك بمساعدة كل أسرة على إنشاء قاعدة بيانات تحتوي على أسماء جميع أفراد الأسرة وعلاقاتهم ببعض</p>
+    </div>
 </div>
 
-<a href="{% url 'tree_new' %}">Create a New Family Tree</a>
+
+<div>
+    <div>
+        <form class="form">
+            <fieldset>
+                <h2> ابحث عن شجرة</h2>
+                <input type="text" id="search" name="name_search">
+                <button type="button" class="success button">بحث</button>
+            </fieldset>
+            <div>
+                <div>
+                    <a href="" class="button">استعراض كل الأشجار</a> <!-- Add browse page refrence -->
+                </div>
+                <div>
+                    <a href="{% url 'tree_new' %}" class="button">إضافة شجرة جديدة</a>
+                </div>
+            </div>
+       </form>
+    </div>
+</div>
+
 {% endblock %}
+

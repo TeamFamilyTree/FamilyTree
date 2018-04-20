@@ -1,10 +1,13 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
-<h4> New marriage to a new person </h4>
 
-<form method="POST">{% csrf_token %}
-	{{ form.as_p }}
-	<input type="submit" value="إنشاء">
-</form>
+<div>
+    <h2>زواج جديد لشخص خارج العائلة </h2>
+
+    <form method="POST">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="إنشاء">
+    </form>
+</div>
 {% endblock %}

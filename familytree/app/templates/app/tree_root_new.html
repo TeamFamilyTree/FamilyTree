@@ -1,10 +1,11 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
-<h4> إضافة شخص جديد </h4>
+
+<h1> إضافة شخص جديد </h1>
 
 <form method="POST">{% csrf_token %}
 	{{ form.as_p }}
-	<button type="submit">إضافة</button>
+	<button type="submit" class="success button">إضافة</button>
 </form>
 {% endblock %}

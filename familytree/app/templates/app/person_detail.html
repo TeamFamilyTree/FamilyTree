@@ -2,34 +2,39 @@
 
 {% block content %}
 
-<h3>Person name: {{ person.first_name }}</h3>
+<div>
+    <h1> Person name: {{ person.first_name }}</h1>
 
-<!-- New Marriage button -->
-<a href="{% url 'marriage_new' person_id=person.id %}">Add new marriage</a><br>
-{% if person.is_branch %}
-<a href="{% url 'person_remove_branch' person_id=person.id %}">Remove person as branch</a><br>
-{% else %}
-<a href="{% url 'person_set_branch' person_id=person.id %}">Set person as branch</a><br>
-{% endif %}
+    <!-- New Marriage button -->
+    <div> 
+        <a href="{% url 'marriage_new' person_id=person.id %}" class="button">Add new marriage</a><br>
+        {% if person.is_branch %}
+        <a href="{% url 'person_remove_branch' person_id=person.id %} "  class="button">Remove person as branch</a><br>
+        {% else %}
+        <a href="{% url 'person_set_branch' person_id=person.id %}"  class="button">Set person as branch</a><br>
+        {% endif %}
+    </div>
 
-<!-- List of marriages and children -->
-<table>
-	<tr>
-		<th> Spouse </th>
-		<th> Children </th>
-	</tr>
-	{% for marriage in marriage_list %}
-	<tr>
-		<td>	{% if person.gender == "f" %}
-				{{ marriage.husband.first_name }}
-				{% else %}
-				{{ marriage.wife.first_name }}
-				{% endif %}
-		</td>
-		<td> <a href="{% url 'person_new' marriage_id=marriage.id %}">
-			Add new child</a> </td>
-	</tr>
-	{% endfor %}
-</table>
+    <!-- List of marriages and children -->
+    <div> 
+        <table>
+            <tr>
+                <th> Spouse </th>
+                <th> Children </th>
+            </tr>
+            {% for marriage in marriage_list %}
+            <tr>
+                <td>	{% if person.gender == "f" %}
+                        {{ marriage.husband.first_name }}
+                        {% else %}
+                        {{ marriage.wife.first_name }}
+                        {% endif %}
+                </td>
+                <td> <a href="{% url 'person_new' marriage_id=marriage.id %}" class="button">Add new child</a> </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
 
 {% endblock %}

@@ -1,9 +1,11 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
-<h3>Tree name: {{ tree.name }}</h3>
+
+
+<h2>Tree name: {{ tree.name }}</h2>
 {% if root == None %}
-<a href="{% url 'tree_root_new' tree_id=tree.pk %}">Add Root Person</a>
+<a href="{% url 'tree_root_new' tree_id=tree.pk %}" class="button">إضافة جذر</a>
 {% else %}
 {{ root.first_name }}
 {% endif %}
