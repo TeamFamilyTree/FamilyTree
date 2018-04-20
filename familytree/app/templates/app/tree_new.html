@@ -1,10 +1,17 @@
 {% extends 'app/base.html' %}
 
 {% block content %}
-<h4> إنشاء شجرة جديدة </h4>
 
-<form method="POST">{% csrf_token %}
-	{{ form.as_p }}
-	<button type="submit">إنشاء</button>
-</form>
+<div class="grid-x">
+    <div class="cell small-2 medium-3 large-4">
+    </div>
+    <div class="cell small-8 medium-6 large-4">
+        <h2> إنشاء شجرة جديدة </h2>
+
+        <form method="POST">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="success button">إنشاء</button>
+        </form>
+    </div>
+</div>
 {% endblock %}

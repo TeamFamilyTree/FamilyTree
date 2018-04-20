@@ -45,19 +45,16 @@ h1 {
 h2 {
     color: #999f9a;
     font-style: bold;
+    
 }
 
 
 
-form {
 
-}
 
 
 button {
     background-color: #d5a5a5;
-    padding: 2%;
-    margin: 2%;
     color: #e8d7bd;
 }
 
@@ -86,13 +83,38 @@ footer {
 
 }
 
-.intro {
-    color: #585b6d;
+
+
+.successbutton {
+    background-color: #d5a5a5;
+    color: #e8d7bd;
 }
 
+.button {
+   background-color: #d5a5a5;
+   color: #e8d7bd; 
+}
 /* iD Selectors ------------ */
 
 
 form {
     margin-top: 15%;
+}
+
+table {
+
+}
+
+.success.button {
+    background-color: #d5a5a5;
+   color: #e8d7bd; 
+}
+
+.introduction {
+    border-style: solid;
+    border-width: thin;
+    border-color: #585b6d;
+    padding: 1rem;
+    margin: 0.5rem;
+    
 }
