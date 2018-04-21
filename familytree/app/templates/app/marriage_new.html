@@ -10,8 +10,8 @@
     <h1> زواج جديد </h1>
         <div>
             <form method="POST">{% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="إنشاء">
+                {{ form.as_p }}
+                <button type="submit" value="Submit" class="button">إنشاء</button>
             </form>
             <a href="{% url 'marriage_to_new_person' person_id=person_id %}" class="button">الشخص غير موجود في الشجرة</a>
             {% endblock %}

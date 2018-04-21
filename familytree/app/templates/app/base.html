@@ -4,10 +4,10 @@
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Family Tree Website</title>
+        <title>Sindian: Family Tree App</title>
+        <link href="https://fonts.googleapis.com/css?family=Lateef|Tajawal" rel="stylesheet">
         <link rel="stylesheet" href="{% static 'css/foundation.css' %}">
         <link rel="stylesheet" href="{% static 'css/app.css' %}">
-
 	</head>
 <!--<div class="grid-x">
         <div class="cell small-2 medium-3 large-4">
@@ -21,18 +21,33 @@
     </div> 
 
 -->
-<div>
-     <body>
-         <header>
-            <h1 class="title">سنديان</h1>
-            <img ref: "">
-         </header>
 
-       {% block content %}
-         {% endblock %}
-
-     </body>
-</div>
-
-    
+    <body>
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <ul class="menu">
+                    <img src="{% static 'images/logo.png' %}" id="logo">
+                    <li class="menu-text">سنديان</li>
+                </ul>
+            </div>
+            <div class="top-bar-right">
+                <ul class="menu">
+                    <li><input type="text" name="query" placeholder="ابحث" data-hide-for="small"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="grid-container bg">
+            <br>
+            <div class="grid-x grid-margin-x">
+                <div class="cell small-1">
+                </div>
+                <div class="cell small-10">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+                <div class="cell small-1">
+                </div>
+            </div>
+        </div>
+    </body> 
 </html>

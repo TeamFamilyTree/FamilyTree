@@ -2,35 +2,30 @@
 
 {% block content %}
 
-<!-- <div class="grid-x grid-margin-x">
-  <div class="medium-6 large-4 cell"></div>
-  <div class="medium-6 large-8 cell"></div>
-</div> -->
-
-<div>
-    <div>
-        <p class="introduction"> هو موقع هدفه زيادة الروابط بين أفراد الأسرة وذلك بمساعدة كل أسرة على إنشاء قاعدة بيانات تحتوي على أسماء جميع أفراد الأسرة وعلاقاتهم ببعض</p>
-    </div>
-</div>
-
-
-<div>
-    <div>
-        <form class="form">
-            <fieldset>
-                <h2> ابحث عن شجرة</h2>
-                <input type="text" id="search" name="name_search">
-                <button type="button" class="success button">بحث</button>
-            </fieldset>
-            <div>
-                <div>
-                    <a href="" class="button">استعراض كل الأشجار</a> <!-- Add browse page refrence -->
-                </div>
-                <div>
-                    <a href="{% url 'tree_new' %}" class="button">إضافة شجرة جديدة</a>
-                </div>
+<div class="grid-container">
+    <div class="grid-y">
+        <div>
+            <div class="cell small-6">
+                <p class="introduction"> هو موقع هدفه زيادة الروابط بين أفراد الأسرة وذلك بمساعدة كل أسرة على إنشاء قاعدة بيانات تحتوي على أسماء جميع أفراد الأسرة وعلاقاتهم ببعض</p>
             </div>
-       </form>
+        </div>
+        <div class="cell small-12 large-10">
+            <form class="form">
+                <fieldset>
+                    <h2> ابحث عن شجرة</h2>
+                    <input type="text" id="search" name="name_search">
+                    <button type="button" class="success button">بحث</button>
+                </fieldset>
+                <div>
+                    <div>
+                        <a href="" class="button">استعراض كل الأشجار</a> <!-- Add browse page refrence -->
+                    </div>
+                    <div>
+                        <a href="{% url 'tree_new' %}" class="button">إضافة شجرة جديدة</a>
+                    </div>
+                </div>
+           </form>
+        </div>
     </div>
 </div>
 

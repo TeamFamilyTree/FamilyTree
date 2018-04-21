@@ -24,6 +24,7 @@ urlpatterns = [
     # Tree
 	path('tree/new/', views.tree_new, name='tree_new'),
     path('tree/<int:tree_id>/', views.tree_detail, name='tree_detail'),
+    path('tree/<int:tree_id>/depth-<int:browse_depth>/', views.tree_detail, name='tree_detail'),
     path('tree/<int:tree_id>/addroot', views.tree_root_new, name='tree_root_new'),
 
     # Person
