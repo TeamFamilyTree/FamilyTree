@@ -2,40 +2,39 @@
 
 {% block content %}
 
-
-<h2>Tree name: {{ tree.name }}</h2>
 {% if root == None %}
 <a href="{% url 'tree_root_new' tree_id=tree.pk %}" class="button">إضافة جذر</a>
-{% else %}
-{{ root.first_name }}
 {% endif %}
-<div>
-    <h1> شجرة عائلة آل .....</h1>
-        <form>
-            <fieldset>
-                <input type="text" id="search" name="name_search">
-                <button>بحث</button>
-            </fieldset>
-        </form>
+<div class="grid-x">
+    <div class="cell small-12">
+        <h2> شجرة عائلة آل {{ root.name }}</h2>
+        <ul class="menu">
+            <li><input class="search-bar" type="text" name="query" placeholder="ابحث عن شخص"></li>
+            <li><button type="button" class="success button">بحث</button></li>
+            <br><br>
+        </ul>
+    </div>
 </div>
 <hr>
-<div>
-    <p>اختر عدد الأجيال للتصفح:</p>
-    <ul class="dropdown menu" data-dropdown-menu>
-        <li><a href="{% url 'tree_detail' tree_id=tree.pk browse_depth=2 %}">2</a></li>
-        <li><a href="{% url 'tree_detail' tree_id=tree.pk browse_depth=3 %}">3</a></li>
-        <li><a href="{% url 'tree_detail' tree_id=tree.pk browse_depth=4 %}">4</a></li>
-        <li><a href="{% url 'tree_detail' tree_id=tree.pk browse_depth=5 %}">5</a></li>
-    </ul>
-
-    {% for d in desc_list %}
-    <p><a href="{% url 'person_detail' person_id=d.1.pk %}">{{ d.0 }} {{ d.1.first_name }}</a></p>
-    {% endfor %}
-<div>
-    <h2> تصفح بالفرع:</h2>
-    <ul>
-        <li> فرع ال..</li>
-        <li>  فرع ال....</li>
-    </ul>
+<div class="grid-x">
+    <div class="cell small-12">
+        <h4> تصفح بالفرع:</h4>
+    </div>
 </div>
+<div class="grid-x">
+    <div class="cell small-12 large-10 large-offset-2">
+        <span>اختر عدد الأجيال للتصفح</span>
+        <ul class="dropdown menu" data-dropdown-menu>
+            <li><a href="{% url 'tree_detail' tree_id=tree.pk browse_depth=2 %}">2</a></li>
+            <li><a href="{% url 'tree_detail' tree_id=tree.pk browse_depth=3 %}">3</a></li>
+            <li><a href="{% url 'tree_detail' tree_id=tree.pk browse_depth=4 %}">4</a></li>
+            <li><a href="{% url 'tree_detail' tree_id=tree.pk browse_depth=5 %}">5</a></li>
+        </ul>
+        <p class="browse-list-root">أبناء <a href="{% url 'person_detail' person_id=root.pk %}">{{ root.name }}:</a></p>
+        {% for d in desc_list %}
+        <p class="browse-list-{{ d.2 }}"><a href="{% url 'person_detail' person_id=d.1.pk %}">{{ d.0 }} {{ d.1.first_name }}</a></p>
+        {% endfor %}
+    </div>
+</div>
+
 {% endblock %}

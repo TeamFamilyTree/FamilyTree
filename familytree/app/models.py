@@ -88,7 +88,7 @@ class Person(models.Model):
 			d_list = []
 		if depth != 0 :
 			for child in self.children():
-				d_list.append([("\xa0" * count), child])
+				d_list.append([("\xa0" * count), child, count])
 				child.descendants_list(depth-1, count+1, d_list)
 			return d_list
 	

@@ -3,38 +3,48 @@
 {% block content %}
 
 <div>
-    <h1> Person name: {{ person.first_name }}</h1>
+    <a href="{% url 'tree_detail' tree_id=person.tree.id %}"><h6>شجرة {{ person.tree.name }} ></h6></a>
+    <h2>{% if person.is_root %}
+        الجد:
+        {% endif %}
+        {{ person.name }}</h2>
+    {% if not person.is_alive %}
+    <p>متوفى</p>
+    {% endif %}
 
     <!-- New Marriage button -->
     <div> 
-        <a href="{% url 'marriage_new' person_id=person.id %}" class="button">Add new marriage</a><br>
-        {% if person.is_branch %}
-        <a href="{% url 'person_remove_branch' person_id=person.id %} "  class="button">Remove person as branch</a><br>
-        {% else %}
-        <a href="{% url 'person_set_branch' person_id=person.id %}"  class="button">Set person as branch</a><br>
-        {% endif %}
+        <a href="{% url 'marriage_new' person_id=person.id %}" class="button">إضافة زواج</a><br>
     </div>
 
     <!-- List of marriages and children -->
+    {% if person.married %}
     <div> 
         <table>
             <tr>
-                <th> Spouse </th>
-                <th> Children </th>
+                <th> الزوج </th>
+                <th> الأطفال </th>
             </tr>
             {% for marriage in marriage_list %}
             <tr>
-                <td>	{% if person.gender == "f" %}
-                        {{ marriage.husband.first_name }}
-                        {% else %}
-                        {{ marriage.wife.first_name }}
-                        {% endif %}
+                <td>{% if person.gender == "f" %}
+                    <a href="{% url 'person_detail' person_id=marriage.husband.id %}">
+                    {{ marriage.husband.first_name }}</a>
+                    {% else %}
+                    <a href="{% url 'person_detail' person_id=marriage.wife.id %}">
+                    {{ marriage.wife.first_name }}</a>
+                    {% endif %}
                 </td>
-                <td> <a href="{% url 'person_new' marriage_id=marriage.id %}" class="button">Add new child</a> </td>
+                <td>{% for child in person.children %}
+                    <a href="{% url 'person_detail' person_id=child.id %}">{{ child.first_name }}</a>، 
+                    {% endfor %}
+                    <a href="{% url 'person_new' marriage_id=marriage.id %}" class="button">إضافة طفل</a>
+                </td>
             </tr>
             {% endfor %}
         </table>
     </div>
+    {% endif %}
 </div>
 
 {% endblock %}
