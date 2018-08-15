@@ -6,11 +6,10 @@
 {% endblock top_bar %}
 
 {% block content %}
-
-<h1> إضافة شخص جديد </h1>
-
+<h4>تعديل معلومات الشخص</h4>
+<p> {{ msg }} </p>
 <form method="POST">{% csrf_token %}
 	{{ form.as_p }}
-	<button type="submit" class="success button">إضافة</button>
+	<button type="submit" value="Submit" class="button">حفظ التغييرات</button>
 </form>
 {% endblock %}

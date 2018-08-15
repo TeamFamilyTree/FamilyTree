@@ -60,10 +60,14 @@ class Person(models.Model):
 	married = models.BooleanField(default=False)
 	is_branch = models.BooleanField(default=False)
 	is_root = models.BooleanField(default=False)
+	is_paternal_desc = models.BooleanField(default=True)
 	date_added = models.DateField(null=True)
 	date_last_updated = models.DateField(null=True)
 	objects = PersonManager()
 	family = FamilyManager()
+
+	def has_parents(self):
+		return True if (self.father != None and self.mother != None) else False
 
 	def children(self):
 		return self.child_of_mother.all() if self.gender == 'f' else self.child_of_father.all()
@@ -78,6 +82,13 @@ class Person(models.Model):
 		else:
 			return [m.wife for m in self.husband_of.all()]
 
+	def has_siblings(self):
+		return True if (self.siblings().count() > 0) else False
+
+	def siblings(self):
+		if self.is_paternal_desc:
+			return Person.objects.filter(father=self.father).exclude(id=self.id)
+
 	def descendants(self):
 		for child in self.children():
 			yield child
@@ -88,16 +99,26 @@ class Person(models.Model):
 			d_list = []
 		if depth != 0 :
 			for child in self.children():
-				d_list.append([("\xa0" * count), child, count])
+				d_list.append([("\xa0" * count * 3), child, count])
 				child.descendants_list(depth-1, count+1, d_list)
 			return d_list
 	
 	def name(self):
 		try:
-			prop = ' بن ' if self.gender == 'm' else ' بنت '
-			string = self.first_name + prop + self.father.first_name
+			prefix_or_none = self.prefix + " "
 		except:
-			string = self.first_name
+			prefix_or_none = ""
+		if self.is_paternal_desc:
+			try:
+				prop = ' بن ' if self.gender == 'm' else ' بنت '
+				string = prefix_or_none + self.first_name + prop + self.father.first_name
+			except:
+				string = prefix_or_none + self.first_name
+		else:
+			try:
+				string = prefix_or_none + self.first_name + " " + self.last_name
+			except:
+				string = prefix_or_none + self.first_name
 		return string
 
 	def __str__(self):

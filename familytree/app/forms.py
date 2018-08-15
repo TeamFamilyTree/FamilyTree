@@ -14,21 +14,25 @@ class TreeForm(forms.ModelForm):
 		}
 
 class PersonForm(forms.ModelForm):
+	prefix = forms.CharField(required=False)
 	class Meta:
 		model = Person
-		fields = ('first_name', 'last_name', 'gender', 'alive')
+		fields = ('first_name', 'prefix', 'gender', 'alive', )
 		labels = {
 			'first_name': 'الاسم الأول',
 			'gender': 'الجنس',
 			'alive': 'على قيد الحياة',
+			'prefix': 'اللقب',
 		}
 
 class RootPersonForm(forms.ModelForm):
+	prefix = forms.CharField(required=False)
 	class Meta:
 		model = Person
-		fields = ('first_name',)
+		fields = ('first_name', 'prefix', )
 		labels = {
 			'first_name': 'الاسم الأول',
+			'prefix': 'اللقب',
 		}
 
 class NewHusbandForm(forms.ModelForm):
@@ -40,7 +44,7 @@ class NewHusbandForm(forms.ModelForm):
 		}
 
 class NewWifeForm(forms.ModelForm):
-	 class Meta:
+	class Meta:
 	 	model = Marriage
 	 	fields = ('wife', )
 	 	labels = {
@@ -50,7 +54,7 @@ class NewWifeForm(forms.ModelForm):
 class MarriageToNewPersonForm(forms.ModelForm):
 	class Meta:
 		model = Person
-		fields = ('first_name', 'last_name', 'alive')
+		fields = ('first_name', 'last_name', 'alive', )
 		labels = {
 			'first_name': 'الاسم الأول',
 			'last_name': 'الاسم الأخير',

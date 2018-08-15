@@ -1,4 +1,9 @@
 {% extends 'app/base.html' %}
+{% block top_bar %}
+    {% with search=False %}
+    {{ block.super}}
+    {% endwith %}
+{% endblock top_bar %}
 
 {% block content %}
 
@@ -13,7 +18,7 @@
                 {{ form.as_p }}
                 <button type="submit" value="Submit" class="button">إنشاء</button>
             </form>
-            <a href="{% url 'marriage_to_new_person' person_id=person_id %}" class="button">الشخص غير موجود في الشجرة</a>
+            <a href="{% url 'marriage_to_new_person' person_id=person_id %}" class="button">الشخص من خارج العائلة</a>
             {% endblock %}
 
         </div>

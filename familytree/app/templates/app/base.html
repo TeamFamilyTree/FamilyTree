@@ -23,6 +23,7 @@
 -->
 
     <body>
+        {% block top_bar %}
         <div class="top-bar">
             <div class="top-bar-left">
                 <ul class="menu">
@@ -31,11 +32,17 @@
                 </ul>
             </div>
             <div class="top-bar-right">
-                <ul class="menu">
-                    <li><input type="text" name="query" placeholder="ابحث" data-hide-for="small"></li>
-                </ul>
+                
+                    {% if search %}
+                    <ul class="menu">
+                        <li><input type="text" name="query" placeholder="ابحث" data-hide-for="small"></li>
+                    </ul>
+                    {% endif %}
+
             </div>
         </div>
+        {% endblock top_bar %}
+
         <div class="grid-container bg">
             <br>
             <div class="grid-x grid-margin-x">
@@ -43,7 +50,7 @@
                 </div>
                 <div class="cell small-10">
                     {% block content %}
-                    {% endblock %}
+                    {% endblock content %}
                 </div>
                 <div class="cell small-1">
                 </div>

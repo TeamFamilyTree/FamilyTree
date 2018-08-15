@@ -1,10 +1,15 @@
 {% extends 'app/base.html' %}
+{% block top_bar %}
+    {% with search=False %}
+    {{ block.super}}
+    {% endwith %}
+{% endblock top_bar %}
 
 {% block content %}
 <h4> إضافة شخص جديد </h4>
 
 <form method="POST">{% csrf_token %}
 	{{ form.as_p }}
-	<button type="submit">إضافة</button>
+	<button type="submit" value="Submit" class="button">إضافة</button>
 </form>
 {% endblock %}

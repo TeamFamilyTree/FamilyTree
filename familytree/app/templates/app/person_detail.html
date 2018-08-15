@@ -1,16 +1,55 @@
 {% extends 'app/base.html' %}
+{% block top_bar %}
+    {% with search=False %}
+    {{ block.super}}
+    {% endwith %}
+{% endblock top_bar %}
 
 {% block content %}
 
 <div>
+    <!-- Tree name -->
     <a href="{% url 'tree_detail' tree_id=person.tree.id %}"><h6>شجرة {{ person.tree.name }} ></h6></a>
+
+    <!-- System Messages (should be put in a green box) -->
+    <p> {{ msg }} </p>
+
+    <!-- Person name -->
     <h2>{% if person.is_root %}
         الجد:
         {% endif %}
         {{ person.name }}</h2>
-    {% if not person.is_alive %}
-    <p>متوفى</p>
+
+    <!-- Edit button -->
+    <div> 
+        <a href="{% url 'person_edit' person_id=person.id %}" class="button">تعديل</a><br>
+    </div>
+
+    <!-- 'Deceased' tag -->
+    {% if person.is_alive %}
+    <p>على قيد الحياة</p>
     {% endif %}
+    <!-- TODO: display dob and dod if deceased -->
+
+    <hr>
+
+    <!-- Parents -->
+    {% if person.has_parents %}
+    <h5>الوالدين:</h5>
+    <p>
+        <a href="{% url 'person_detail' person_id=person.father.id %}">{{ person.father }}</a>، 
+        <a "{% url 'person_detail' person_id=person.mother.id %}">{{ person.mother }}</a>
+    </p>
+    {% endif %}
+    
+    <!-- Siblings -->
+    {% if person.has_siblings %}
+    <h5>الإخوان والأخوات:</h5>
+    {% for sib in siblings %}
+    <a href="{% url 'person_detail' person_id=sib.id %}">{{ sib.first_name }}</a>، 
+    {% endfor %}
+    {% endif %}
+    <br>    
 
     <!-- New Marriage button -->
     <div> 
@@ -45,6 +84,7 @@
         </table>
     </div>
     {% endif %}
+
 </div>
 
 {% endblock %}

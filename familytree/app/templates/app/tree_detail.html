@@ -1,4 +1,9 @@
 {% extends 'app/base.html' %}
+{% block top_bar %}
+    {% with search=False %}
+    {{ block.super}}
+    {% endwith %}
+{% endblock top_bar %}
 
 {% block content %}
 

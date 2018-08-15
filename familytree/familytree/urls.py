@@ -29,6 +29,7 @@ urlpatterns = [
 
     # Person
     path('person/<int:person_id>/', views.person_detail, name='person_detail'),
+    path('person/<int:person_id>/edit', views.person_edit, name='person_edit'),
     path('person/<int:person_id>/setbranch', views.person_set_branch, name='person_set_branch'),
     path('person/<int:person_id>/removebranch', views.person_remove_branch, name='person_remove_branch'),
     path('marriage/<int:marriage_id>/newperson/', views.person_new, name='person_new'),
