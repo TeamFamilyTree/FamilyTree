@@ -54,6 +54,7 @@ def person_detail(request, person_id):
 
 def person_new(request, marriage_id):
 	if request.method == "POST":
+		# Form Processing
 		form = PersonForm(request.POST)
 		if form.is_valid():
 			parents = get_object_or_404(Marriage, pk=marriage_id)
@@ -67,6 +68,7 @@ def person_new(request, marriage_id):
 			person.save()
 			return redirect('person_detail', person_id = person.pk)
 	else:
+		# Render Empty Form
 		form = PersonForm()
 	return render(request, 'app/person_new.html', {'form': form})
 
@@ -80,6 +82,15 @@ def person_edit(request, person_id):
 	else:
 		form = PersonForm(instance=person)
 	return render(request, 'app/person_edit.html', {'person': person, 'form': form})
+
+# def family_new(request, person_id):
+# 	grandfather = get_object_or_404(Person, pk=person_id)
+# 	if request.method == "POST":
+# 		father_form = PersonForm(request.POST, instance)
+# 	else:
+# 		# Render Empty Form
+# 		father_form = PersonForm()
+# 		mother_form = PersonForm()
 
 def marriage_new(request, person_id):
 	person = get_object_or_404(Person, pk=person_id)
@@ -98,7 +109,8 @@ def marriage_new(request, person_id):
 				return redirect('person_detail', person_id = person.pk)
 		else:
 			form = NewHusbandForm()
-			form.fields["husband"].queryset = Person.objects.filter(gender="m").exclude(pk__in=[s.id for s in person.spouses()])
+			form.fields["husband"].queryset = Person.objects.filter(gender="m").exclude(
+				pk__in=[s.id for s in person.spouses()])
 	else:
 		if request.method == "POST":
 			form = NewWifeForm(request.POST)
@@ -114,7 +126,8 @@ def marriage_new(request, person_id):
 				return redirect('person_detail', person_id = person.pk)
 		else:
 			form = NewWifeForm()
-			form.fields["wife"].queryset = Person.objects.filter(gender="f").exclude(pk__in=[s.id for s in person.spouses()])
+			form.fields["wife"].queryset = Person.objects.filter(gender="f").exclude(
+				pk__in=[s.id for s in person.spouses()])
 	return render(request, 'app/marriage_new.html', {'form': form, 'person_id': person_id})
 
 def marriage_to_new_person(request, person_id):

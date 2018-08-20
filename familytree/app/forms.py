@@ -14,16 +14,31 @@ class TreeForm(forms.ModelForm):
 		}
 
 class PersonForm(forms.ModelForm):
-	prefix = forms.CharField(required=False)
+	alive = forms.TypedChoiceField(
+                   coerce=lambda x: x == 'True',
+                   choices=((True, 'على قيد الحياة'), (False, 'متوفى')),
+                   widget=forms.RadioSelect
+                )
+
 	class Meta:
 		model = Person
-		fields = ('first_name', 'prefix', 'gender', 'alive', )
+		fields = ('first_name', 'prefix', 'gender', 'alive', 'birth_year', 'death_year', )
 		labels = {
 			'first_name': 'الاسم الأول',
-			'gender': 'الجنس',
-			'alive': 'على قيد الحياة',
 			'prefix': 'اللقب',
+			'gender': 'الجنس',
+			'alive': 'احم',
+			'birth_year': 'سنة الميلاد (هجري)',
+			'death_year': 'سنة الوفاة (هجري)',
 		}
+
+	def __init__(self, *args, **kwargs):
+		super(PersonForm, self).__init__(*args, **kwargs)
+		self.fields['alive'].label = ""
+		self.fields['birth_year'].widget=forms.TextInput(attrs={'id': 'birth_year'})
+		self.fields['death_year'].widget=forms.TextInput(attrs={'id': 'death_year'})
+
+
 
 class RootPersonForm(forms.ModelForm):
 	prefix = forms.CharField(required=False)

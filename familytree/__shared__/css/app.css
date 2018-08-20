@@ -184,3 +184,11 @@ form {
     color: #c9cdad;
     font-weight: bold;
 }
+
+input:disabled {
+  background: #dddddd;
+}
+
+input:disabled-label {
+  color: #ccc;
+}

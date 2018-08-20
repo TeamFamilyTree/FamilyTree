@@ -1,4 +1,6 @@
 from django.db import models
+import datetime
+
 
 class Tree(models.Model):
 	name = models.CharField(max_length=50)
@@ -38,11 +40,11 @@ class FamilyManager(models.Manager):
 		tree = Tree.objects.get(pk=tree_id)
 		return super(FamilyManager, self).get_queryset().filter(tree=tree)
 
-class Person(models.Model):
+class Person(models.Model):	
 	tree = models.ForeignKey('Tree', related_name='tree', on_delete=models.PROTECT)
 	first_name = models.CharField(max_length=50)
-	last_name = models.CharField(max_length=50, null=True)
-	prefix = models.CharField(max_length=50, null=True)
+	last_name = models.CharField(max_length=50, null=True, blank=True)
+	prefix = models.CharField(max_length=50, null=True, blank=True)
 	father = models.ForeignKey('Person',
 								related_name='child_of_father',
 								limit_choices_to={'gender': 'm'},
@@ -53,10 +55,10 @@ class Person(models.Model):
 								limit_choices_to={'gender': 'f'},
 								on_delete=models.PROTECT,
 								null=True)
-	gender = models.CharField(max_length=1, choices=(('f', 'Female'),('m', 'Male')))
+	gender = models.CharField(max_length=1, choices=(('f', 'أنثى'),('m', 'ذكر')))
 	alive = models.BooleanField(default=True)
-	dob = models.DateField(null=True)
-	dod = models.DateField(null=True)
+	birth_year = models.CharField(max_length=4, null=True, blank=True)
+	death_year = models.CharField(max_length=4, null=True, blank=True)
 	married = models.BooleanField(default=False)
 	is_branch = models.BooleanField(default=False)
 	is_root = models.BooleanField(default=False)
@@ -67,7 +69,7 @@ class Person(models.Model):
 	family = FamilyManager()
 
 	def has_parents(self):
-		return True if (self.father != None and self.mother != None) else False
+		return True if (type(self.father) is Person and type(self.mother) is Person) else False
 
 	def children(self):
 		return self.child_of_mother.all() if self.gender == 'f' else self.child_of_father.all()
@@ -120,6 +122,20 @@ class Person(models.Model):
 			except:
 				string = prefix_or_none + self.first_name
 		return string
+
+	def alive_label(self):
+		if self.alive == False:
+			if self.gender == "f":
+				return "متوفاه" + self.life_years()
+			else:
+				return "متوفى" + self.life_years()
+		else:
+			return "على قيد الحياة"
+	def life_years(self):
+		if self.alive == False:
+			byear = self.birth_year + "هـ" if self.birth_year != None else " ؟"
+			dyear = self.death_year + "هـ" if self.death_year != None else "؟ "
+			return " (" + byear + " - " + dyear + ")"
 
 	def __str__(self):
 		return self.name()

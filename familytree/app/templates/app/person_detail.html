@@ -25,11 +25,8 @@
         <a href="{% url 'person_edit' person_id=person.id %}" class="button">تعديل</a><br>
     </div>
 
-    <!-- 'Deceased' tag -->
-    {% if person.is_alive %}
-    <p>على قيد الحياة</p>
-    {% endif %}
-    <!-- TODO: display dob and dod if deceased -->
+    <!-- Life tag -->
+    {{ person.alive_label }}
 
     <hr>
 
