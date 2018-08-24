@@ -74,14 +74,25 @@ WSGI_APPLICATION = 'familytree.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'familytreedb',
+#         'USER': 'treeadmin',
+#         'PASSWORD': 'ruqi2018',
+#         'HOST': 'familytreeinstance.cnjzwblehkkd.eu-central-1.rds.amazonaws.com',
+#         'PORT': '5432'
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'familytreedb',
         'USER': 'treeadmin',
-        'PASSWORD': 'ruqi2018',
-        'HOST': 'familytreeinstance.cnjzwblehkkd.eu-central-1.rds.amazonaws.com',
-        'PORT': '5432'
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': ''
     }
 }
 

@@ -83,14 +83,6 @@ def person_edit(request, person_id):
 		form = PersonForm(instance=person)
 	return render(request, 'app/person_edit.html', {'person': person, 'form': form})
 
-# def family_new(request, person_id):
-# 	grandfather = get_object_or_404(Person, pk=person_id)
-# 	if request.method == "POST":
-# 		father_form = PersonForm(request.POST, instance)
-# 	else:
-# 		# Render Empty Form
-# 		father_form = PersonForm()
-# 		mother_form = PersonForm()
 
 def marriage_new(request, person_id):
 	person = get_object_or_404(Person, pk=person_id)
