@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import get_object_or_404
 import datetime
 
 
@@ -7,14 +8,25 @@ class Tree(models.Model):
 	def has_root(self):
 		return Person.objects.filter(tree=self).filter(is_root=True).exists()
 
-# QuerySets for Person model: organizes database access for table-level queries
+# QuerySets for Person model: (organizes database access for table-level queries)
 class PersonQuerySet(models.QuerySet):
 	def branches(self):
 		return self.filter(is_branch=True)
+	def tree(self, tree_id):
+		return self.filter(tree_id=tree_id)
 	def men(self):
 		return self.filter(gender='m')
-	def women(self):
-		return self.filter(gender='f')
+	def men(self, tree_id):
+		return self.filter(tree_id=tree_id).filter(gender='m')
+	def women(self, tree_id):
+		return self.filter(tree_id=tree_id).filter(gender='f')
+	def eligible_spouses(self, person_id):
+		person = get_object_or_404(Person, pk=person_id)
+		if (person.gender == "f"):
+			return self.women(tree_id=person.tree.pk).exclude(
+				pk__in=[s.id for s in person.spouses()])
+		return self.men(tree_id=person.tree.pk).exclude(
+				pk__in=[s.id for s in person.spouses()])
 	def first_gen(self, tree_id):
 		root = self.root(tree_id=tree_id)
 		return self.filter(father=root)
@@ -30,15 +42,11 @@ class PersonQuerySet(models.QuerySet):
 		tree = Tree.objects.get(pk=tree_id)
 		return self.filter(tree=tree)
 
-# Default Manager class for Person model (uses QuerySets defined in PersonQuerySet)
-class PersonManager(models.Manager):
-	def get_queryset(self):
-		return PersonQuerySet(self.model, using=self._db)
-
-class FamilyManager(models.Manager):
-	def get_queryset(self, tree_id):
-		tree = Tree.objects.get(pk=tree_id)
-		return super(FamilyManager, self).get_queryset().filter(tree=tree)
+# # Managers for Person model: (definition of common filters for Person model)
+# class PersonManager(models.Manager):
+# 	# Default Manager class for Person model (uses QuerySets defined in PersonQuerySet)
+# 	def get_queryset(self):
+# 		return PersonQuerySet(self.model, using=self._db)
 
 class Person(models.Model):	
 	tree = models.ForeignKey('Tree', related_name='tree', on_delete=models.PROTECT)
@@ -63,10 +71,9 @@ class Person(models.Model):
 	is_branch = models.BooleanField(default=False)
 	is_root = models.BooleanField(default=False)
 	is_paternal_desc = models.BooleanField(default=True)
-	date_added = models.DateField(null=True)
-	date_last_updated = models.DateField(null=True)
-	objects = PersonManager()
-	family = FamilyManager()
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
+	objects = PersonQuerySet.as_manager()
 
 	def has_parents(self):
 		return True if (type(self.father) is Person and type(self.mother) is Person) else False
@@ -89,7 +96,7 @@ class Person(models.Model):
 
 	def siblings(self):
 		if self.is_paternal_desc:
-			return Person.objects.filter(father=self.father).exclude(id=self.id)
+			return Person.objects.filter(father=s2elf.father).exclude(id=self.id)
 
 	def descendants(self):
 		for child in self.children():

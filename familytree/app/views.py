@@ -12,19 +12,28 @@ def index(request):
 def tree_new(request):
 	# New Tree Form Submission
 	if request.method == "POST":
-		form = TreeForm(request.POST)
-		if form.is_valid():
-			tree = form.save()
-			return redirect('tree_detail', pk = tree.pk)
+		tree_form = TreeForm(request.POST)
+		root_form = RootPersonForm(request.POST)
+		if tree_form.is_valid() and root_form.is_valid():
+			tree = tree_form.save()
+			person = root_form.save(commit=False)
+			person.tree = tree
+			person.alive = False
+			person.gender = "m"
+			person.is_root = True
+			person.save()
+			return redirect('person_detail', person_id = root.pk)
 	else:
 	# Display New Form
-		form = TreeForm()
-	return render(request, 'app/tree_new.html', {'form': form})
+		tree_form = TreeForm()
+		root_form = RootPersonForm()
+	return render(request, 'app/tree_new.html', {'tree_form': tree_form,
+												'root_form': root_form })
 
 def tree_detail(request, tree_id, browse_depth=3):
 	tree = get_object_or_404(Tree, pk=tree_id)
 	if (Tree.has_root(tree)):
-		root = Person.objects.filter(tree=tree).get(is_root=True)
+		root = Person.objects.root(tree.pk)
 		desc_list = root.descendants_list(browse_depth)
 		context = {
 		'tree': tree,
@@ -79,7 +88,7 @@ def person_edit(request, person_id):
 		if form.is_valid():
 			updated_person = form.save()
 			return redirect('person_detail', person_id = person.pk)
-	else:
+	elif request.method == "GET":
 		form = PersonForm(instance=person)
 	return render(request, 'app/person_edit.html', {'person': person, 'form': form})
 
@@ -99,11 +108,10 @@ def marriage_new(request, person_id):
 				marriage.husband.married = True
 				marriage.husband.save()
 				return redirect('person_detail', person_id = person.pk)
-		else:
+		elif request.method == "GET":
 			form = NewHusbandForm()
-			form.fields["husband"].queryset = Person.objects.filter(gender="m").exclude(
-				pk__in=[s.id for s in person.spouses()])
-	else:
+			form.fields["husband"].queryset = Person.objects.eligible_spouses(person_id=person.pk)
+	elif (person.gender == "m"):
 		if request.method == "POST":
 			form = NewWifeForm(request.POST)
 			if form.is_valid():
@@ -116,10 +124,12 @@ def marriage_new(request, person_id):
 				marriage.wife.married = True
 				marriage.wife.save()
 				return redirect('person_detail', person_id = person.pk)
-		else:
-			form = NewWifeForm()
-			form.fields["wife"].queryset = Person.objects.filter(gender="f").exclude(
-				pk__in=[s.id for s in person.spouses()])
+		elif request.method == "GET":
+			if person.is_root:
+				redirect('marriage_to_new_person', person_id = person.pk)
+			else:
+				form = NewWifeForm()
+				form.fields["wife"].queryset = Person.objects.eligible_spouses(person_id=person.pk)
 	return render(request, 'app/marriage_new.html', {'form': form, 'person_id': person_id})
 
 def marriage_to_new_person(request, person_id):

@@ -41,13 +41,12 @@ class PersonForm(forms.ModelForm):
 
 
 class RootPersonForm(forms.ModelForm):
-	prefix = forms.CharField(required=False)
 	class Meta:
 		model = Person
 		fields = ('first_name', 'prefix', )
 		labels = {
-			'first_name': 'الاسم الأول',
-			'prefix': 'اللقب',
+			'first_name': 'اسم الجد',
+			'prefix': 'لقب الجد',
 		}
 
 class NewHusbandForm(forms.ModelForm):

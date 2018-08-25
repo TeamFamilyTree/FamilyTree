@@ -36,6 +36,9 @@
             <li><a href="{% url 'tree_detail' tree_id=tree.pk browse_depth=5 %}">5</a></li>
         </ul>
         <p class="browse-list-root">أبناء <a href="{% url 'person_detail' person_id=root.pk %}">{{ root.name }}:</a></p>
+        {% if not root.has_children %}
+        <a href="{% url 'person_detail' person_id=root.pk %}" class="button">إضافة أبناء</a>
+        {% endif %}
         {% for d in desc_list %}
         <p class="browse-list-{{ d.2 }}"><a href="{% url 'person_detail' person_id=d.1.pk %}">{{ d.0 }} {{ d.1.first_name }}</a></p>
         {% endfor %}

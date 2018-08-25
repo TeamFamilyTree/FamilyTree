@@ -31,6 +31,7 @@
     <hr>
 
     <!-- Parents -->
+    {% if not person.is_root %}
     {% if person.has_parents %}
     <h5>الوالدين:</h5>
     <p>
@@ -45,6 +46,7 @@
     {% for sib in siblings %}
     <a href="{% url 'person_detail' person_id=sib.id %}">{{ sib.first_name }}</a>، 
     {% endfor %}
+    {% endif %}
     {% endif %}
     <br>    
 
