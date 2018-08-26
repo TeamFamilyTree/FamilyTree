@@ -26,7 +26,7 @@ urlpatterns = [
     path('tree/<int:tree_id>/', views.tree_detail, name='tree_detail'),
     path('tree/<int:tree_id>/depth-<int:browse_depth>/', views.tree_detail, name='tree_detail'),
     path('tree/<int:tree_id>/addroot', views.tree_detail, name='tree_root_new'),
-    path('tree/<int:tree_id>/search/', views.search, name='search'),
+    path('search/', views.tree_search, name='tree_search'),
 
     # Person
     path('person/<int:person_id>/', views.person_detail, name='person_detail'),
@@ -34,6 +34,7 @@ urlpatterns = [
     path('person/<int:person_id>/setbranch', views.person_set_branch, name='person_set_branch'),
     path('person/<int:person_id>/removebranch', views.person_remove_branch, name='person_remove_branch'),
     path('marriage/<int:marriage_id>/newperson/', views.person_new, name='person_new'),
+    path('tree/<int:tree_id>/search/', views.person_search, name='person_search'),
 
     # Marriage
     path('person/<int:person_id>/newmarriage/', views.marriage_new, name='marriage_new'),

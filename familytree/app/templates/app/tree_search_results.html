@@ -1,0 +1,19 @@
+{% extends 'app/base.html' %}
+{% block top_bar %}
+    {% with search=True %}
+    {{ block.super}}
+    {% endwith %}
+{% endblock top_bar %}
+
+{% block content %}
+<h4> نتائج البحث في أشجار سنديان</h4>
+
+<form type="GET" action="{% url 'tree_search' %}">
+    <input type="text" id="search" name="query" value="{{query}}" placeholder="ادخل اسم عائلتك">
+</form>
+ <h6> ({{ search_results|length }}) نتائج:</h6>
+{% for tree in search_results %}
+<p><a href="{% url 'tree_detail' tree_id=tree.id %}">شجرة {{ tree.name }}</a></p>
+{% endfor %}
+
+{% endblock %}

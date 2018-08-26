@@ -9,8 +9,8 @@
 
 <div class="grid-x">
     <div class="cell small-12">
-        <h2> شجرة عائلة آل {{ root.name }}</h2>
-            <form type="GET" action="{% url 'search' tree_id=root.tree.id %}">
+        <h2> شجرة عائلة {{ root.tree.name }}</h2>
+            <form type="GET" action="{% url 'person_search' tree_id=root.tree.id %}">
                 <ul class="menu">
                     <li><input type="text" name="query" placeholder="ابحث" data-hide-for="small"></li>
                     <li><button type="button" class="success button">بحث</button></li>

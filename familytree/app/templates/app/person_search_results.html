@@ -1,0 +1,29 @@
+{% extends 'app/base.html' %}
+{% block top_bar %}
+    {% with search=False %}
+    {{ block.super}}
+    {% endwith %}
+{% endblock top_bar %}
+
+{% block content %}
+<h4> نتائج البحث في شجرة <a href="{% url 'tree_detail' tree_id=person.tree.id %}">{{ person.tree.name }}</a></h4>
+ 
+ <form type="GET" action="{% url 'person_search' tree_id=person.tree.id %}">
+    <input type="text" id="search" name="query" value="{{query}}" placeholder="ادخل اسم">
+</form>
+
+{% if search_results|length == 0 %}
+<h6> لم يتم العثور على نتائج </h6>
+{% else %}
+<h6> ({{ search_results|length }}) نتائج:</h6>
+{% endif %}
+
+{% for person in search_results %}
+{% if person.is_root %}
+<p><a href="{% url 'person_detail' person_id=person.id %}">الجد: {{ person.name }}</a></p>
+{% else %}
+<p><a href="{% url 'person_detail' person_id=person.id %}">{{ person.name }}</a></p>
+{% endif %}
+{% endfor %}
+
+{% endblock %}

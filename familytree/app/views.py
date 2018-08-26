@@ -22,7 +22,7 @@ def tree_new(request):
 			person.gender = "m"
 			person.is_root = True
 			person.save()
-			return redirect('person_detail', person_id = root.pk)
+			return redirect('person_detail', person_id = person.pk)
 	else:
 	# Display New Form
 		tree_form = TreeForm()
@@ -61,11 +61,17 @@ def tree_root_new(request, tree_id):
 		form = RootPersonForm()
 	return render(request, 'app/tree_root_new.html', {'form': form})
 
-def search(request, tree_id):
+def tree_search(request):
+	query = request.GET.get('query')
+	search_results = Tree.objects.filter(name__contains=query)
+	return render(request, 'app/tree_search_results.html', {'query':query,
+													'search_results':search_results})
+
+def person_search(request, tree_id):
 	query = request.GET.get('query')
 	search_results = Person.objects.tree(tree_id).filter(first_name__contains=query)
 	root = Person.objects.root(tree_id)
-	return render(request, 'app/search_results.html', {'query':query,
+	return render(request, 'app/person_search_results.html', {'query':query,
 													'search_results':search_results,
 													'person':root})
 
@@ -94,13 +100,16 @@ def person_new(request, marriage_id):
 			person = form.save(commit=False)
 			person.mother = parents.wife
 			person.father = parents.husband
-			person.last_name = person.father.last_name
 			person.tree = parents.tree
 			if not person.father.is_paternal_desc:
 				person.is_paternal_desc = False
-			person.save()
-			return redirect('person_detail', person_id = person.pk)
-	else:
+				person.last_name = person.father.last_name
+				person.save()
+				return redirect('person_detail', person_id = person.mother.pk)
+			else:
+				person.save()
+				return redirect('person_detail', person_id = person.pk)
+	elif request.method == "GET":
 		# Render Empty Form
 		form = PersonForm()
 	return render(request, 'app/person_form.html', {'form': form,
@@ -139,11 +148,10 @@ def marriage_new(request, person_id):
 				marriage = form.save(commit=False)
 				marriage.wife = person
 				marriage.tree = person.tree
+				marriage.husband.married = True
 				marriage.save()
 				person.married = True
 				person.save()
-				marriage.husband.married = True
-				marriage.husband.save()
 				return redirect('person_detail', person_id = person.pk)
 		elif request.method == "GET":
 			form = NewHusbandForm()
@@ -155,15 +163,14 @@ def marriage_new(request, person_id):
 				marriage = form.save(commit=False)
 				marriage.husband = person
 				marriage.tree = person.tree
+				marriage.wife.married = True
 				marriage.save()
 				person.married = True
 				person.save()
-				marriage.wife.married = True
-				marriage.wife.save()
 				return redirect('person_detail', person_id = person.pk)
 		elif request.method == "GET":
 			if person.is_root:
-				redirect('marriage_to_new_person', person_id = person.pk)
+				return redirect('marriage_to_new_person', person_id = person.pk)
 			else:
 				form = NewWifeForm()
 				form.fields["wife"].queryset = Person.objects.eligible_spouses(person_id=person.pk)

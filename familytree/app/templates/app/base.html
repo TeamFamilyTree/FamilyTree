@@ -36,7 +36,7 @@
             <div class="top-bar-right">
                     {% if not person == None %}
                     {% if search %}
-                    <form type="GET" action="{% url 'search' tree_id=person.tree.id %}">
+                    <form type="GET" action="{% url 'person_search' tree_id=person.tree.id %}">
                         <ul class="menu">
                             <li><input type="text" name="query" placeholder="ابحث" data-hide-for="small"></li>
                         </ul>

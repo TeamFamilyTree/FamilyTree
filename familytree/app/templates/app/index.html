@@ -14,12 +14,13 @@
             </div>
         </div>
         <div class="cell small-12 large-10">
-            <form class="form">
+            <form type="GET" action="{% url 'tree_search' %}">
                 <fieldset>
                     <h2> ابحث عن شجرة</h2>
-                    <input type="text" id="search" name="name_search">
+                    <input type="text" id="search" name="query" placeholder="ادخل اسم عائلتك">
                     <button type="button" class="success button">بحث</button>
                 </fieldset>
+            </form>
                 <div>
                     <div>
                         <a href="" class="button">استعراض كل الأشجار</a> <!-- Add browse page refrence -->
@@ -28,7 +29,7 @@
                         <a href="{% url 'tree_new' %}" class="button">إضافة شجرة جديدة</a>
                     </div>
                 </div>
-           </form>
+           
         </div>
     </div>
 </div>
