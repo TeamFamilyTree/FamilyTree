@@ -67,11 +67,12 @@ p {
 h2 {
     font-style: bold;
 }
-a {
+/* a {
     color: #606060;
 }
 a:hover, a:focus {
     color: black; }
+*/
 
 button {
     background-color: #d5a5a5;
@@ -168,7 +169,7 @@ form {
     font-size: 1rem;
     font-weight: bold;
     color: #999f9a;
-}
+} 
 .browse-list-3 > a{
     font-size: 0.9rem;
     font-weight: bold;
