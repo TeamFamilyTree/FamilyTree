@@ -7,17 +7,15 @@
 
 {% block content %}
 
-{% if root == None %}
-<a href="{% url 'tree_root_new' tree_id=tree.pk %}" class="button">إضافة جذر</a>
-{% endif %}
 <div class="grid-x">
     <div class="cell small-12">
         <h2> شجرة عائلة آل {{ root.name }}</h2>
-        <ul class="menu">
-            <li><input class="search-bar" type="text" name="query" placeholder="ابحث عن شخص"></li>
-            <li><button type="button" class="success button">بحث</button></li>
-            <br><br>
-        </ul>
+            <form type="GET" action="{% url 'search' tree_id=root.tree.id %}">
+                <ul class="menu">
+                    <li><input type="text" name="query" placeholder="ابحث" data-hide-for="small"></li>
+                    <li><button type="button" class="success button">بحث</button></li>
+                </ul>
+            </form>
     </div>
 </div>
 <hr>

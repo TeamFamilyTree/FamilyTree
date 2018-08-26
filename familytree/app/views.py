@@ -45,6 +45,30 @@ def tree_detail(request, tree_id, browse_depth=3):
 		form = RootPersonForm()
 		return render(request, 'app/tree_root_new.html', {'form': form})
 
+def tree_root_new(request, tree_id):
+	if request.method == "POST":
+		form = RootPersonForm(request.POST)
+		if form.is_valid():
+			person = form.save(commit=False)
+			person.tree = get_object_or_404(Tree, pk=tree_id)
+			person.alive = False
+			person.gender = "m"
+			person.last_name = tree.name
+			person.is_root = True
+			person.save()
+			return redirect('tree_detail', tree_id = tree_id)
+	else:
+		form = RootPersonForm()
+	return render(request, 'app/tree_root_new.html', {'form': form})
+
+def search(request, tree_id):
+	query = request.GET.get('query')
+	search_results = Person.objects.tree(tree_id).filter(first_name__contains=query)
+	root = Person.objects.root(tree_id)
+	return render(request, 'app/search_results.html', {'query':query,
+													'search_results':search_results,
+													'person':root})
+
 def person_detail(request, person_id):
 	person = get_object_or_404(Person, pk=person_id)
 	if person.is_paternal_desc:
@@ -79,7 +103,8 @@ def person_new(request, marriage_id):
 	else:
 		# Render Empty Form
 		form = PersonForm()
-	return render(request, 'app/person_new.html', {'form': form})
+	return render(request, 'app/person_form.html', {'form': form,
+		'heading': 'إضافة شخص جديد', 'button_label': 'إضافة'})
 
 def person_edit(request, person_id):
 	person = get_object_or_404(Person, pk=person_id)
@@ -90,8 +115,20 @@ def person_edit(request, person_id):
 			return redirect('person_detail', person_id = person.pk)
 	elif request.method == "GET":
 		form = PersonForm(instance=person)
-	return render(request, 'app/person_edit.html', {'person': person, 'form': form})
+	return render(request, 'app/person_form.html', {'person': person, 'form': form,
+		'heading': 'تعديل معلومات الشخص', 'button_label': 'تعديل'})
 
+def person_set_branch(request, person_id):
+	person = get_object_or_404(Person, pk=person_id)
+	person.is_branch = True
+	person.save()
+	return redirect('person_detail', person_id = person.pk)
+
+def person_remove_branch(request, person_id):
+	person = get_object_or_404(Person, pk=person_id)
+	person.is_branch = False
+	person.save()
+	return redirect('person_detail', person_id = person.pk)
 
 def marriage_new(request, person_id):
 	person = get_object_or_404(Person, pk=person_id)
@@ -154,7 +191,7 @@ def marriage_to_new_person(request, person_id):
 				return redirect('person_detail', person_id = person.pk)
 		else:
 			form = MarriageToNewPersonForm()
-	else:
+	elif (person.gender == "m"):
 		if request.method == "POST":
 			form =  MarriageToNewPersonForm(request.POST)
 			if form.is_valid():
@@ -175,32 +212,3 @@ def marriage_to_new_person(request, person_id):
 		else:
 			form = MarriageToNewPersonForm()
 	return render(request, 'app/marriage_person_new.html', {'form': form})
-
-def tree_root_new(request, tree_id):
-	if request.method == "POST":
-		form = RootPersonForm(request.POST)
-		if form.is_valid():
-			#if person.tree.has_root
-			person = form.save(commit=False)
-			person.tree = get_object_or_404(Tree, pk=tree_id)
-			person.alive = False
-			person.gender = "m"
-			person.last_name = tree.name
-			person.is_root = True
-			person.save()
-			return redirect('tree_detail', tree_id = tree_id)
-	else:
-		form = RootPersonForm()
-	return render(request, 'app/tree_root_new.html', {'form': form})
-
-def person_set_branch(request, person_id):
-	person = get_object_or_404(Person, pk=person_id)
-	person.is_branch = True
-	person.save()
-	return redirect('person_detail', person_id = person.pk)
-
-def person_remove_branch(request, person_id):
-	person = get_object_or_404(Person, pk=person_id)
-	person.is_branch = False
-	person.save()
-	return redirect('person_detail', person_id = person.pk)

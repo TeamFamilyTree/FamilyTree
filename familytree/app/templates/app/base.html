@@ -17,7 +17,7 @@
     <div class="cell small-8 medium-6 large-4">
     </div>
    <div class="grid-x">
-    <div class=" cell small- 2 medium-3 large-4 "> 
+    <div class=" cell small-2 medium-3 large-4 "> 
     </div>
        
     </div> 
@@ -34,11 +34,14 @@
                 </ul>
             </div>
             <div class="top-bar-right">
-                
+                    {% if not person == None %}
                     {% if search %}
-                    <ul class="menu">
-                        <li><input type="text" name="query" placeholder="ابحث" data-hide-for="small"></li>
-                    </ul>
+                    <form type="GET" action="{% url 'search' tree_id=person.tree.id %}">
+                        <ul class="menu">
+                            <li><input type="text" name="query" placeholder="ابحث" data-hide-for="small"></li>
+                        </ul>
+                    </form>
+                    {% endif %}
                     {% endif %}
 
             </div>

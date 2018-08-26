@@ -1,0 +1,16 @@
+{% extends 'app/base.html' %}
+{% block top_bar %}
+    {% with search=True %}
+    {{ block.super}}
+    {% endwith %}
+{% endblock top_bar %}
+
+{% block content %}
+<h4> نتائج البحث لـ "{{ query }}" في شجرة <a href="{% url 'tree_detail' tree_id=person.tree.id %}">{{ person.tree.name }}</a></h4>
+ 
+{% for person in search_results %}
+<p><a href="{% url 'person_detail' person_id=person.id %}">{{ person.name }}</a></p>
+{% endfor %}
+<p> {{ request.GET.tree_id }} </p>
+
+{% endblock %}

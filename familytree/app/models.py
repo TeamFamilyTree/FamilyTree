@@ -42,12 +42,6 @@ class PersonQuerySet(models.QuerySet):
 		tree = Tree.objects.get(pk=tree_id)
 		return self.filter(tree=tree)
 
-# # Managers for Person model: (definition of common filters for Person model)
-# class PersonManager(models.Manager):
-# 	# Default Manager class for Person model (uses QuerySets defined in PersonQuerySet)
-# 	def get_queryset(self):
-# 		return PersonQuerySet(self.model, using=self._db)
-
 class Person(models.Model):	
 	tree = models.ForeignKey('Tree', related_name='tree', on_delete=models.PROTECT)
 	first_name = models.CharField(max_length=50)
@@ -81,6 +75,11 @@ class Person(models.Model):
 	def children(self):
 		return self.child_of_mother.all() if self.gender == 'f' else self.child_of_father.all()
 
+	def has_children(self):
+		if self.gender == 'f':
+			return True if (self.child_of_mother.all().count() > 0) else False
+		return True if (self.child_of_father.all().count() > 0) else False
+
 	def marriages(self):
 		return self.wife_of.all() if self.gender == 'f' else self.husband_of.all()
 	
@@ -96,7 +95,7 @@ class Person(models.Model):
 
 	def siblings(self):
 		if self.is_paternal_desc:
-			return Person.objects.filter(father=s2elf.father).exclude(id=self.id)
+			return Person.objects.filter(father=self.father).exclude(id=self.id)
 
 	def descendants(self):
 		for child in self.children():
