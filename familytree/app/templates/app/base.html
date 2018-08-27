@@ -29,9 +29,10 @@
         <div class="top-bar">
             <div class="top-bar-left">
                 <ul class="menu">
-                  <a href="" > <img src="{% static 'images/logo.png' %}" id="logo"></a> <!-- Add Home page URL -->  
-                    <li class="menu-text">سنديان</li>
+                    <a href="{% url 'index' %}"><img src="{% static 'images/logo.png' %}" id="logo"></a>
+                    <li class="menu-text"><a href="{% url 'index' %}"><h4>سنديان</h4></a></li>
                 </ul>
+                
             </div>
             <div class="top-bar-right">
                     {% if not person == None %}
