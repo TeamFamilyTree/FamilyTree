@@ -5,6 +5,8 @@ import datetime
 
 class Tree(models.Model):
 	name = models.CharField(max_length=50)
+	passcode = models.CharField(max_length=100)
+
 	def has_root(self):
 		return Person.objects.filter(tree=self).filter(is_root=True).exists()
 

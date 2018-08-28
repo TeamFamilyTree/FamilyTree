@@ -7,10 +7,12 @@
 
 {% block content %}
 
-<h3> إضافة جد العائلة </h3>
+<h4>Login to tree {{tree.name}}</4>
+
 
 <form method="POST">{% csrf_token %}
 	{{ form.as_p }}
-	<button type="submit" class="success button">إضافة</button>
+	<button type="submit" class="success button">دخول</button>
 </form>
+
 {% endblock %}

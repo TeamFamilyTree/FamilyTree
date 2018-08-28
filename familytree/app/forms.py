@@ -3,14 +3,35 @@ from django import forms
 from .models import Tree, Person, Marriage
 
 class TreeForm(forms.ModelForm):
+	error_css_class = 'error'
+	passcode = forms.CharField(widget=forms.PasswordInput(), label="كلمة المرور")
+	passcode_confirm = forms.CharField(widget=forms.PasswordInput(), label="تكرار كلمة المرور")
+
 	class Meta:
 		model = Tree
-		fields = ('name',)
+		fields = ('name', 'passcode', )
 		widgets = {
 			'name': forms.TextInput(attrs={'class': 'form'}),
 		}
 		labels = {
-			'name': 'اسم العائلة:',
+			'name': 'اسم العائلة',
+		}
+	def clean(self):
+		cleaned_data = super(TreeForm, self).clean()
+		passcode = cleaned_data.get("passcode")
+		passcode_confirm = cleaned_data.get("passcode_confirm")
+
+		if passcode != passcode_confirm:
+			self.fields['passcode_confirm'].widget.attrs['class'] = "error"
+			raise forms.ValidationError("password and confirm_password does not match")
+
+class TreeLoginForm(forms.ModelForm):
+	passcode = forms.CharField(widget=forms.PasswordInput(), label="كلمة المرور")
+	class Meta:
+		model = Tree
+		fields = ('passcode', )
+		labels = {
+			'passcode': 'كلمة المرور',
 		}
 
 class PersonForm(forms.ModelForm):

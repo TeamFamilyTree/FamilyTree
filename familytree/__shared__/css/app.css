@@ -193,3 +193,7 @@ input:disabled {
 input:disabled-label {
   color: #ccc;
 }
+
+.error {
+    border-color: red;
+}
