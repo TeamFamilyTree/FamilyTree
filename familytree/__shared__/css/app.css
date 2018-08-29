@@ -15,12 +15,12 @@
 */
 
 .bg, body {
-    background-color: #e6e6e6;
+    background-color: #e8d7bd;
 }
 
 
 .top-bar, .top-bar > div > ul {
-    background-color: #999f9a;
+    background-color: #e8d7bd;
 }
 .menu-text, .menu > li.menu-text {
     color: white;
@@ -84,7 +84,7 @@ button {
 
 
 footer {
-    color: #585b6d;
+    background-color: #585b6d;
     position: absolute;
     right: 0;
     bottom: 0;
@@ -193,3 +193,11 @@ input:disabled {
 input:disabled-label {
   color: #ccc;
 }
+
+.hero {
+    background-color: #999f9a ;
+    padding: 2rem 2rem;
+}
+
+
+

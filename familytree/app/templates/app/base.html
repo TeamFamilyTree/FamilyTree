@@ -25,6 +25,7 @@
 -->
 
     <body>
+        <!-- Top -->
         {% block top_bar %}
         <div class="top-bar">
             <div class="top-bar-left">
@@ -48,19 +49,20 @@
             </div>
         </div>
         {% endblock top_bar %}
-
-        <div class="grid-container bg">
-            <br>
-            <div class="grid-x grid-margin-x">
-                <div class="cell small-1">
-                </div>
-                <div class="cell small-10">
+        
+        
+        <!-- content -->
+         
+       
                     {% block content %}
                     {% endblock content %}
-                </div>
-                <div class="cell small-1">
-                </div>
-            </div>
-        </div>
+         
+              
+        
+        <!-- Footer -->
+        <footer>
+        
+        </footer>
+
     </body> 
 </html>
