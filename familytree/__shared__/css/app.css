@@ -3,6 +3,7 @@
     /*font-family:*/
     font-size: 1.2rem;
     color: #3b3b3b;
+    font-family: 'Tajawal';
 }
 /* Element Selectors ------------ */
 
@@ -15,12 +16,12 @@
 */
 
 .bg, body {
-    background-color: #e8d7bd;
+    background-color: whitesmoke;
 }
 
 
 .top-bar, .top-bar > div > ul {
-    background-color: #e8d7bd;
+    background-color: #999f9a;
 }
 .menu-text, .menu > li.menu-text {
     color: white;
@@ -118,6 +119,8 @@ footer {
    color: #ededed;
    font-weight: bold;
    padding: 0.6rem;
+    margin: 5%;
+    
 }
 /* iD Selectors ------------ */
 
@@ -195,10 +198,21 @@ input:disabled-label {
 }
 
 .hero {
-    background-color: #999f9a ;
+    background-color: #e8d7bd ;
     padding: 2rem 2rem;
 }
 
 .error {
     border-color: red;
+}
+
+.main {
+    padding: 5%;
+    margin: 1%;
+}
+
+.newtr {
+    margin-left: 10%;
+    text-align: center;
+    height: 50px;
 }

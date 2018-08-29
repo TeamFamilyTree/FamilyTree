@@ -10,7 +10,7 @@
         <!-- Hero Section, 'introduction + big button to create new tree' -->
         <section class= "hero">
           <p> سنديان هو موقع هدفه زيادة الروابط بين أفراد الأسرة وذلك بمساعدة كل أسرة على إنشاء قاعدة بيانات تحتوي على أسماء جميع أفراد الأسرة وعلاقاتهم ببعض</p>
-          <a href="{% url 'tree_new' %}" class="button"> أنشئ شجرتك الآن</a>
+          <a href="{% url 'tree_new' %}" class="button newtr"> أنشئ شجرتك الآن</a>
         </section>
 
       <!-- Second section, Search -->
@@ -19,16 +19,12 @@
                <fieldset>
                    <h2> ابحث عن شجرة</h2>
                    <input class="input-group input-group-rounded" type="text" id="search" name="query" placeholder="ادخل اسم عائلتك">
-                   <button class="input-group input-group-rounded" type="button" class="success button">بحث</button>
+                   <button type="button" class="success button">بحث</button>
                </fieldset>
            </form>
       </section>
 
-      <!-- Third Section, 'Who are we' -->
-      <footer> 
-        <p> مها وهيفاء </p>
-      </footer>
-        
-   
+      <!-- Third Section, 'Who are we'  -->
+
 {% endblock content %} 
 
