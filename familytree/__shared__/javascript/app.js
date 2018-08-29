@@ -1,3 +1,4 @@
+$(document).foundation()
 $(document).ready(function() {
     var aliveRadio = document.getElementById("id_alive_0");
     var deceasedRadio = document.getElementById("id_alive_1");

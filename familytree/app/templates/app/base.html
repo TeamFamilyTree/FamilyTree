@@ -8,8 +8,6 @@
         <link href="https://fonts.googleapis.com/css?family=Lateef|Tajawal" rel="stylesheet">
         <link rel="stylesheet" href="{% static 'css/foundation.css' %}">
         <link rel="stylesheet" href="{% static 'css/app.css' %}">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="{% static 'javascript/app.js' %}"></script>
 	</head>
 <!--<div class="grid-x">
         <div class="cell small-2 medium-3 large-4">
@@ -36,15 +34,24 @@
                 
             </div>
             <div class="top-bar-right">
+                <ul class="dropdown menu" data-dropdown-menu>
+                    {% if request.session.tree_id %}
+                    <li>
+                        <a href="{% url 'tree_detail' tree_id=request.session.tree_id %}">شجرة {{request.session.tree_name}}</a>
+                        <ul class="menu">
+                            <li><a href="">الإحصاءات</li>
+                            <li><a href="{% url 'tree_logout' %}">تسجيل الخروج</a></li>
+                        </ul>
+                    </li>
+                    {% endif %}
                     {% if not person == None %}
                     {% if search %}
-                    <form type="GET" action="{% url 'person_search' tree_id=person.tree.id %}">
-                        <ul class="menu">
-                            <li><input type="text" name="query" placeholder="ابحث" data-hide-for="small"></li>
-                        </ul>
-                    </form>
+                    <li><form type="GET" action="{% url 'person_search' tree_id=person.tree.id %}"><input type="text" name="query" placeholder="ابحث" data-hide-for="small"></form></li>
                     {% endif %}
                     {% endif %}
+                </ul>
+                    
+                    
 
             </div>
         </div>
@@ -56,6 +63,7 @@
        
                     {% block content %}
                     {% endblock content %}
+<<<<<<< HEAD
          
               
         
@@ -64,5 +72,16 @@
         
         </footer>
 
+=======
+                </div>
+                <div class="cell small-1">
+                </div>
+            </div>
+        </div>
+        <script src="{% static 'javascript/vendor/jquery.js' %}"></script>
+        <script src="{% static 'javascript/vendor/what-input.js' %}"></script>
+        <script src="{% static 'javascript/vendor/foundation.js' %}"></script>
+        <script src="{% static 'javascript/app.js' %}"></script>
+>>>>>>> caeef6be396acc1afc558bd0f8f30ff33cccc320
     </body> 
 </html>

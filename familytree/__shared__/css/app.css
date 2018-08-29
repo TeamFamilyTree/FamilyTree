@@ -194,6 +194,7 @@ input:disabled-label {
   color: #ccc;
 }
 
+<<<<<<< HEAD
 .hero {
     background-color: #999f9a ;
     padding: 2rem 2rem;
@@ -201,3 +202,8 @@ input:disabled-label {
 
 
 
+=======
+.error {
+    border-color: red;
+}
+>>>>>>> caeef6be396acc1afc558bd0f8f30ff33cccc320

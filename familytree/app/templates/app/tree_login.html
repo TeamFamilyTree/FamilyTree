@@ -7,10 +7,14 @@
 
 {% block content %}
 
-<h3> إضافة جد العائلة </h3>
+<h4>الدخول إلى شجرة عائلة {{tree_name}}</4>
 
+{% if error_msg %}
+<p>{{ error_msg }}</p>
+{% endif %}
 <form method="POST">{% csrf_token %}
 	{{ form.as_p }}
-	<button type="submit" class="success button">إضافة</button>
+	<button type="submit" class="success button">دخول</button>
 </form>
+
 {% endblock %}
