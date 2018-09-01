@@ -1,0 +1,40 @@
+{% extends 'app/base.html' %}
+{% block top_bar %}
+    {% with search=False %}
+    {{ block.super}}
+    {% endwith %}
+{% endblock top_bar %}
+
+{% block content %}
+<h4> إضافة شخص جديد </h4>
+
+<form method="post">
+	{% csrf_token %}
+
+	{{ formset.management_form }}
+	<div class="person-form">
+		<table border="0" cellpadding="0" cellspacing="0">
+	        <tbody>
+	        	{% for form in formset.forms %}
+	            <tr>
+					<td>{{ form.first_name.label_tag }}{{ form.first_name }}</td>
+					<td>{{ form.prefix.label_tag }}{{ form.prefix }}</td>
+	            </tr>
+	            <tr>
+					<td>{{ form.gender.label_tag }}{{ form.gender }}</td>
+					<td>{{ form.alive.label_tag }}{{ form.alive }}</td>
+	            </tr>
+	            {% endfor %}
+	        </tbody>
+		</table>
+	</div>
+ 	
+	<div class="grid-x grid-margin-x">
+        <div class="cell small-9">
+        </div>
+        <div class="cell small-3">
+        	<button type="submit" value="Submit" class="button primary expanded">تسليم</button>
+        </div>
+	</div>
+</form>
+{% endblock %}

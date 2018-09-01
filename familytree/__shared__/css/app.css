@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 * {
     /*font-family:*/
     font-size: 1.2rem;
@@ -8,6 +9,9 @@
 /* Element Selectors ------------ */
 
 /* Color Palette:
+=======
+/* Color Palette: (OUTDATED)
+>>>>>>> formset-test
     #585b6d -> Dark Grey
     #999f9a -> Grey
     #abc9be -> Pastel Green
@@ -15,48 +19,31 @@
     #e8d7bd -> Biege
 */
 
+<<<<<<< HEAD
 .bg, body {
     background-color: whitesmoke;
 }
+=======
+/* New color palette:
+    background  -> #f7f7f7
+    top bar     -> #b8bf95
+*/
+>>>>>>> formset-test
 
+/**************    General    **************/
 
-.top-bar, .top-bar > div > ul {
-    background-color: #999f9a;
+/*-- Font styles and sizes --*/
+* {
+    /*font-family:*/
+    font-size: 1.2rem;
+    color: #3b3b3b;
 }
-.menu-text, .menu > li.menu-text {
-    color: white;
-    font-size: 2rem;
-    font-family: 'Tajawal', sans-serif;
-    margin-top: .5rem;
-}
-#logo {
-    width: 4rem;
-    height: 4rem;
-    margin-left: 0.7rem;
-    margin-right: 1rem;
-}
-.search-bar {
-    min-width: 100%;
-    margin-bottom: 10rem;
-}
-
-/*div {
-   margin: 5%;
-
-}*/
-
-/*p {
-
-}*/
-
-
-
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Tajawal', sans-serif;
     margin-bottom: 1rem;
 }
 h1, h2, h3, h4, h5 {
-    color: #888d89;
+    color: #4c4c4c;
 }
 h6 {
     color: #3b3b3b;  
@@ -64,26 +51,20 @@ h6 {
 p {
     font-size: 1.4rem;
 }
-
 h2 {
     font-style: bold;
 }
-/* a {
-    color: #606060;
+.larger-text {
+    font-size: 160%;
+    color: inherit;
+    font-family: sans-serif;
+    font-weight: 
 }
-a:hover, a:focus {
-    color: black; }
-*/
-
-button {
-    background-color: #d5a5a5;
-    color: #ededed;
+/*-- Backgrounds --*/
+.bg, body {
+    /*old background-color: #e6e6e6;*/
+    background-color: #f7f7f7;
 }
-.button:hover {
-    background-color: #ad8c8c;
-}
-
-
 footer {
     background-color: #585b6d;
     position: absolute;
@@ -97,22 +78,64 @@ footer {
 
 }
 
-
-/* Class Selectors ------------ */
-
-.title {
-    color: #e8d7bd ;
-    padding: 2%;
-    font-size: 30px;
-    font-style: bold;
-
-}
-
-
-.successbutton {
+/*-- Buttons and Links --*/
+button {
     background-color: #d5a5a5;
-    color: #e8d7bd;
+    color: #ededed;
 }
+.button:hover {
+    background-color: #5f5d5d;
+}
+.button {
+   color: white;
+   font-weight: bold;
+   padding: .6rem;
+   border-radius: 4px;
+}
+.button.primary {
+   background-color: #8b9885;
+}
+.button.primary:hover {
+    background-color: #6c7b67;
+}
+.button.secondary {
+   background-color: #f7f7f7;
+   color: #8b9885;
+   border-color: #8b9885;
+   border-width: 2px;
+   border-style: solid;
+   font-weight: bold;
+}
+.button.thin {
+    padding: .4em .7em;
+}
+.button.secondary:hover {
+    background-color: #e4e4e4;
+    color: #8b9885;
+}
+.delete-btn { /* For Formset */
+    margin-right: .6rem;
+}
+a {
+    color: #606060;
+}
+
+a:hover, a:focus {
+    color: black; }
+
+/*-- Other general styles --*/
+
+ul {
+    list-style: none;
+}
+
+/**************     Forms     **************/
+input[type=text], select{
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+<<<<<<< HEAD
 
 .button {
    background-color: #d5a5a5;
@@ -121,23 +144,82 @@ footer {
    padding: 0.6rem;
     margin: 5%;
     
-}
-/* iD Selectors ------------ */
-
-
-/*form {
-    margin-top: 15%;
+=======
+input:disabled {
+  background: #dddddd;
+>>>>>>> formset-test
 }
 
-/*table {
+input:disabled-label {
+  color: #ccc;
+}
+input[type="search"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none
+}
+.error {
+    border-color: red;
+}
 
+/*---  Person Formset  ---*/
+.person-form > table > tbody {
+    border: none;
+}
+.person-form > table > tbody > tr, .person-form table > tbody > tr > td {
+    background-color: transparent;
+}
+.person-form > tbody > tr {
+    /*border-bottom: 2px solid black;*/
+}
+/*.person-form > tbody > tr:last-child td{
+    background-color: #dddddd;
+    border: none;
 }*/
+div.person-form {
+    border-radius: 6px;
+    background-color: white;
+    padding: .8rem .3rem .5rem .3rem;
+    margin-bottom: 1rem;
 
-.success.button {
-    background-color: #d5a5a5;
-    color: #e8d7bd; 
 }
 
+/**************    Top Bar    **************/
+
+.top-bar, .top-bar > div > ul {
+    /*background-color: #999f9a;*/
+    background-color: #b8bf95;
+}
+@font-face {
+    font-family: 'Adobe-arabic-shin';
+    src: url("/static/fonts/Adobe-arabic-shin.ttf") format("truetype"), local(Adobe-arabic-shin);
+}
+#title,  #title:hover {
+    font-family: 'Adobe-arabic-shin', sans-serif;
+    color: white;
+    font-size: 4rem;
+    padding: 0;
+}
+li.menu-text {
+    margin-top: 0;
+    padding-top: 0 !important;
+    padding-bottom: 1rem !important;
+}
+#logo {
+    width: 4rem;
+    height: 4rem;
+    margin-left: 0.7rem;
+    margin-right: 1rem;
+}
+.search-bar {
+    min-width: 100%;
+    margin-bottom: 10rem;
+}
+
+
+/**************    Homepage   **************/
 .introduction {
     border-style: solid;
     border-width: thin;
@@ -147,6 +229,7 @@ footer {
     
 }
 
+/**************  Tree Detail  **************/
 .browse-list-root, .browse-list-root > a {
     font-size: 1.8rem;
     color: #3b3b3b;
@@ -173,30 +256,28 @@ footer {
     font-weight: bold;
     color: #999f9a;
 } 
-.browse-list-3 > a{
+.browse-list-3 > a {
     font-size: 0.9rem;
     font-weight: bold;
     color: #b9beba;
 }
-.browse-list-4 > a{
+.browse-list-4 > a {
     font-size: 0.8rem;
     color: #babea0;
     font-weight: bold;
 }
-.browse-list-5 > a{
+.browse-list-5 > a {
     font-size: 0.6em;
     color: #c9cdad;
     font-weight: bold;
 }
 
-input:disabled {
-  background: #dddddd;
-}
+/************** Person Detail **************/
 
-input:disabled-label {
-  color: #ccc;
-}
 
+
+
+<<<<<<< HEAD
 .hero {
     background-color: #e8d7bd ;
     padding: 2rem 2rem;
@@ -216,3 +297,5 @@ input:disabled-label {
     text-align: center;
     height: 50px;
 }
+=======
+>>>>>>> formset-test

@@ -38,7 +38,8 @@ class PersonForm(forms.ModelForm):
 	alive = forms.TypedChoiceField(
                    coerce=lambda x: x == 'True',
                    choices=((True, 'على قيد الحياة'), (False, 'متوفى')),
-                   widget=forms.RadioSelect
+                   widget=forms.RadioSelect,
+                   required=True
                 )
 
 	class Meta:
@@ -56,10 +57,11 @@ class PersonForm(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
 		super(PersonForm, self).__init__(*args, **kwargs)
 		self.fields['alive'].label = ""
-		self.fields['birth_year'].widget=forms.TextInput(attrs={'id': 'birth_year'})
-		self.fields['death_year'].widget=forms.TextInput(attrs={'id': 'death_year'})
-
-
+		#self.fields['birth_year'].widget=forms.TextInput(attrs={'id': 'birth_year'})
+		#self.fields['death_year'].widget=forms.TextInput(attrs={'id': 'death_year'})
+		self.fields['first_name'].widget.attrs['required'] = 'required'
+		self.fields['gender'].widget.attrs['required'] = 'required'
+		self.fields['alive'].widget.attrs['required'] = 'required'
 
 class RootPersonForm(forms.ModelForm):
 	class Meta:
