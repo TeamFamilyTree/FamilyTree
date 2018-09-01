@@ -123,7 +123,8 @@ ALTER SEQUENCE app_person_id_seq OWNED BY app_person.id;
 
 CREATE TABLE app_tree (
     id integer NOT NULL,
-    name character varying(50) NOT NULL
+    name character varying(50) NOT NULL,
+    passcode character varying(100) NOT NULL
 );
 
 
@@ -642,6 +643,7 @@ COPY app_person (id, first_name, last_name, prefix, gender, alive, married, is_b
 27	صفية	\N	\N	f	f	t	f	14	24	25	f	t	\N	\N	2018-08-26 17:24:17.046046+01	2018-08-26 17:26:24.287077+01
 31	صقر	الفلاني	\N	m	f	f	f	14	30	27	f	f	\N	\N	2018-08-26 17:26:46.330279+01	2018-08-26 17:26:46.330313+01
 33	هند	الفلاني	\N	f	f	f	f	14	30	27	f	f	\N	\N	2018-08-26 21:58:31.163665+01	2018-08-26 21:58:31.163707+01
+34	hash test	\N	\N	m	f	f	f	15	\N	\N	t	t	\N	\N	2018-08-28 22:02:04.377532+01	2018-08-28 22:02:04.377563+01
 \.
 
 
@@ -649,21 +651,19 @@ COPY app_person (id, first_name, last_name, prefix, gender, alive, married, is_b
 -- Name: app_person_id_seq; Type: SEQUENCE SET; Schema: public; Owner: treeadmin
 --
 
-SELECT pg_catalog.setval('app_person_id_seq', 33, true);
+SELECT pg_catalog.setval('app_person_id_seq', 34, true);
 
 
 --
 -- Data for Name: app_tree; Type: TABLE DATA; Schema: public; Owner: treeadmin
 --
 
-COPY app_tree (id, name) FROM stdin;
-2	test2
-3	test3
-4	test
-1	العبدالله
-12	الفلاني
-13	المبارك
-14	السليماني
+COPY app_tree (id, name, passcode) FROM stdin;
+3	test3	pbkdf2_sha256$100000$LovOb0iuCKPh$VAsAZ99XDSVxkzCUNwfIlPHAALPJqN/LA6qkqdHwrWQ=
+1	العبدالله	pbkdf2_sha256$100000$LovOb0iuCKPh$VAsAZ99XDSVxkzCUNwfIlPHAALPJqN/LA6qkqdHwrWQ=
+13	المبارك	pbkdf2_sha256$100000$LovOb0iuCKPh$VAsAZ99XDSVxkzCUNwfIlPHAALPJqN/LA6qkqdHwrWQ=
+15	hash test	pbkdf2_sha256$100000$LovOb0iuCKPh$VAsAZ99XDSVxkzCUNwfIlPHAALPJqN/LA6qkqdHwrWQ=
+14	السليماني	pbkdf2_sha256$100000$LovOb0iuCKPh$VAsAZ99XDSVxkzCUNwfIlPHAALPJqN/LA6qkqdHwrWQ=
 \.
 
 
@@ -671,7 +671,7 @@ COPY app_tree (id, name) FROM stdin;
 -- Name: app_tree_id_seq; Type: SEQUENCE SET; Schema: public; Owner: treeadmin
 --
 
-SELECT pg_catalog.setval('app_tree_id_seq', 14, true);
+SELECT pg_catalog.setval('app_tree_id_seq', 15, true);
 
 
 --
@@ -751,6 +751,7 @@ SELECT pg_catalog.setval('auth_permission_id_seq', 27, true);
 --
 
 COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+1	pbkdf2_sha256$100000$pjjNceGdmF6F$8kcA23ewal/ifcMLu8ohy0sqJDTUzm42bUxD+UzlaP4=	2018-08-27 15:50:43.945268+01	t	admin			admin@admin.admin	t	t	2018-08-27 15:50:34.505203+01
 \.
 
 
@@ -773,7 +774,7 @@ SELECT pg_catalog.setval('auth_user_groups_id_seq', 1, false);
 -- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: treeadmin
 --
 
-SELECT pg_catalog.setval('auth_user_id_seq', 1, false);
+SELECT pg_catalog.setval('auth_user_id_seq', 1, true);
 
 
 --
@@ -866,6 +867,9 @@ COPY django_migrations (id, app, name, applied) FROM stdin;
 29	app	0015_auto_20180816_1835	2018-08-16 16:35:24.149663+01
 30	app	0016_auto_20180825_1716	2018-08-25 15:17:06.853152+01
 31	app	0017_auto_20180825_2003	2018-08-25 18:03:49.293394+01
+32	app	0018_tree_passcode	2018-08-27 22:53:35.263025+01
+33	app	0019_auto_20180829_0001	2018-08-28 22:01:41.906959+01
+34	app	0020_auto_20180829_0001	2018-08-28 22:01:59.108986+01
 \.
 
 
@@ -873,7 +877,7 @@ COPY django_migrations (id, app, name, applied) FROM stdin;
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: treeadmin
 --
 
-SELECT pg_catalog.setval('django_migrations_id_seq', 31, true);
+SELECT pg_catalog.setval('django_migrations_id_seq', 34, true);
 
 
 --
@@ -881,6 +885,13 @@ SELECT pg_catalog.setval('django_migrations_id_seq', 31, true);
 --
 
 COPY django_session (session_key, session_data, expire_date) FROM stdin;
+3zefvqp2pmj3py66hdsxpdd1n1gliisy	ZmYwZGNiZjhlYThjNTkyYmI4YzFlYjA3YzY1ODc1NzAzNjJjMjllMjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJlNWFmZTY1MTczMjMwZmI4ODc5ZDE5MzY2MWJiODU0NzI1ZDE4ZTIzIiwidHJlZV9pZCI6M30=	2018-09-10 23:22:11.723341+01
+uu4qy4jrj45heo0cy4gb8btthfy0p3an	NGY1OGYyNTAzMzA4NzI0MzhkNzZjNjVjNDBhMTllMTk5YWI0Y2Q2Njp7InRyZWVfaWQiOjE1fQ==	2018-09-11 22:10:25.978217+01
+wcomrhrnhhrgskkcz2yeymfg4gawsan3	NDc5ODk3ZmUyZjc3ZDQ5ZWExNjE2NzJlOGY1NzM5ZDc0YzU0MjlhMDp7InRyZWVfaWQiOjEsInRyZWVfbmFtZSI6Ilx1MDYyN1x1MDY0NFx1MDYzOVx1MDYyOFx1MDYyZlx1MDYyN1x1MDY0NFx1MDY0NFx1MDY0NyJ9	2018-09-11 23:59:59.155572+01
+4n1arquw4at9t9dtamresu481q46x2lo	NDc5ODk3ZmUyZjc3ZDQ5ZWExNjE2NzJlOGY1NzM5ZDc0YzU0MjlhMDp7InRyZWVfaWQiOjEsInRyZWVfbmFtZSI6Ilx1MDYyN1x1MDY0NFx1MDYzOVx1MDYyOFx1MDYyZlx1MDYyN1x1MDY0NFx1MDY0NFx1MDY0NyJ9	2018-09-12 00:14:19.178181+01
+4cx0cfr0ylxs3cuc837cji1g4sigdoa2	NDc5ODk3ZmUyZjc3ZDQ5ZWExNjE2NzJlOGY1NzM5ZDc0YzU0MjlhMDp7InRyZWVfaWQiOjEsInRyZWVfbmFtZSI6Ilx1MDYyN1x1MDY0NFx1MDYzOVx1MDYyOFx1MDYyZlx1MDYyN1x1MDY0NFx1MDY0NFx1MDY0NyJ9	2018-09-12 00:15:12.658544+01
+no8jx51hh4fa0htmaqikduxzcpkbkqs9	NDc5ODk3ZmUyZjc3ZDQ5ZWExNjE2NzJlOGY1NzM5ZDc0YzU0MjlhMDp7InRyZWVfaWQiOjEsInRyZWVfbmFtZSI6Ilx1MDYyN1x1MDY0NFx1MDYzOVx1MDYyOFx1MDYyZlx1MDYyN1x1MDY0NFx1MDY0NFx1MDY0NyJ9	2018-09-12 00:21:15.17212+01
+s0nnffx3188b7wptmi8fq8kucw2bzugs	NDc5ODk3ZmUyZjc3ZDQ5ZWExNjE2NzJlOGY1NzM5ZDc0YzU0MjlhMDp7InRyZWVfaWQiOjEsInRyZWVfbmFtZSI6Ilx1MDYyN1x1MDY0NFx1MDYzOVx1MDYyOFx1MDYyZlx1MDYyN1x1MDY0NFx1MDY0NFx1MDY0NyJ9	2018-09-12 16:12:46.012828+01
 \.
 
 

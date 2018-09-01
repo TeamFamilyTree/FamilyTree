@@ -35,7 +35,7 @@ urlpatterns = [
     path('person/<int:person_id>/edit', views.person_edit, name='person_edit'),
     path('person/<int:person_id>/setbranch', views.person_set_branch, name='person_set_branch'),
     path('person/<int:person_id>/removebranch', views.person_remove_branch, name='person_remove_branch'),
-    path('marriage/<int:marriage_id>/newperson/', views.person_new, name='person_new'),
+    path('person/<int:person_id>/m/<int:marriage_id>/newperson/', views.person_new, name='person_new'),
     path('tree/<int:tree_id>/search/', views.person_search, name='person_search'),
 
     # Marriage

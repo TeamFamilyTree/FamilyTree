@@ -1,4 +1,6 @@
 {% load staticfiles %}
+{% load crispy_forms_tags %}
+
 <html class="no-js" lang="ar" dir="rtl">
 	<head>
         <meta charset="utf-8">
@@ -9,26 +11,13 @@
         <link rel="stylesheet" href="{% static 'css/foundation.css' %}">
         <link rel="stylesheet" href="{% static 'css/app.css' %}">
 	</head>
-<!--<div class="grid-x">
-        <div class="cell small-2 medium-3 large-4">
-    </div>
-    <div class="cell small-8 medium-6 large-4">
-    </div>
-   <div class="grid-x">
-    <div class=" cell small-2 medium-3 large-4 "> 
-    </div>
-       
-    </div> 
-
--->
 
     <body>
         {% block top_bar %}
         <div class="top-bar">
             <div class="top-bar-left">
                 <ul class="menu">
-                    <a href="{% url 'index' %}"><img src="{% static 'images/logo.png' %}" id="logo"></a>
-                    <li class="menu-text"><a href="{% url 'index' %}"><h4>سنديان</h4></a></li>
+                    <li class="menu-text"><a href="{% url 'index' %}" id="title">سند  يا  ن</a></li>
                 </ul>
                 
             </div>
@@ -69,9 +58,19 @@
                 </div>
             </div>
         </div>
+
         <script src="{% static 'javascript/vendor/jquery.js' %}"></script>
         <script src="{% static 'javascript/vendor/what-input.js' %}"></script>
         <script src="{% static 'javascript/vendor/foundation.js' %}"></script>
+        <script src="{% static 'javascript/vendor/jquery.formset.js' %}"></script>
         <script src="{% static 'javascript/app.js' %}"></script>
+        <script>
+            $('.person-form').formset({
+                addText: '<span class="larger-text">&oplus;  </span> إضافة استمارة جديدة',
+                deleteText: '<span class="larger-text">&#8854;  </span> حذف الاستمارة',
+                deleteCssClass: 'button delete-btn alert thin',
+                addCssClass: 'button secondary thin'
+            });
+        </script>
     </body> 
 </html>

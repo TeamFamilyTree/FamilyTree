@@ -76,7 +76,7 @@
                 <td>{% for child in marriage.wife.children %}
                     <a href="{% url 'person_detail' person_id=child.id %}">{{ child.first_name }}</a>، 
                     {% endfor %}
-                    <a href="{% url 'person_new' marriage_id=marriage.id %}" class="button">إضافة طفل</a>
+                    <a href="{% url 'person_new' person_id=person.id marriage_id=marriage.id %}" class="button">إضافة طفل</a>
                 </td>
             </tr>
             {% endfor %}

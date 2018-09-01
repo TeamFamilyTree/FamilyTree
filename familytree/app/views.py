@@ -7,6 +7,7 @@ from .models import Tree, Person, Marriage
 from django.http import HttpResponseRedirect
 from django.contrib.auth.hashers import *
 from django.contrib.auth import authenticate, login, logout
+from django.forms import *
 
 def index(request):
 	return render(request, 'app/index.html')
@@ -107,30 +108,54 @@ def person_detail(request, person_id):
 	else:
 		return redirect('tree_login', tree_id = person.tree.pk)
 
-def person_new(request, marriage_id):
+# def person_new(request, marriage_id):
+# 	parents = get_object_or_404(Marriage, pk=marriage_id)
+# 	if request.session.get('tree_id') == parents.tree.pk:
+# 		if request.method == "POST":
+# 			# Form Processing
+# 			form = PersonForm(request.POST)
+# 			if form.is_valid():
+# 				person = form.save(commit=False)
+# 				person.mother = parents.wife
+# 				person.father = parents.husband
+# 				person.tree = parents.tree
+# 				if not person.father.is_paternal_desc:
+# 					person.is_paternal_desc = False
+# 					person.last_name = person.father.last_name
+# 					person.save()
+# 					return redirect('person_detail', person_id = person.mother.pk)
+# 				else:
+# 					person.save()
+# 					return redirect('person_detail', person_id = person.pk)
+# 		elif request.method == "GET":
+# 			# Render Empty Form
+# 			form = PersonForm()
+# 		return render(request, 'app/person_form.html', {'form': form,
+# 			'heading': 'إضافة شخص جديد', 'button_label': 'إضافة'})
+# 	else:
+# 		return redirect('tree_login', tree_id = person.tree.pk)
+
+def person_new(request, person_id, marriage_id):
+	person = get_object_or_404(Person, pk=person_id)
 	parents = get_object_or_404(Marriage, pk=marriage_id)
 	if request.session.get('tree_id') == parents.tree.pk:
-		if request.method == "POST":
-			# Form Processing
-			form = PersonForm(request.POST)
-			if form.is_valid():
-				person = form.save(commit=False)
-				person.mother = parents.wife
-				person.father = parents.husband
-				person.tree = parents.tree
-				if not person.father.is_paternal_desc:
-					person.is_paternal_desc = False
-					person.last_name = person.father.last_name
+		PersonFormset = formset_factory(PersonForm)
+		if request.method == 'POST':
+			formset = PersonFormset(request.POST)
+			if formset.is_valid():
+				for form in formset:
+					#person = create_person(form, parents)
+					person = form.save(commit=False)
+					person.mother = parents.wife
+					person.father = parents.husband
+					person.tree = parents.tree
+					if not person.father.is_paternal_desc:
+						person.is_paternal_desc = False
+						person.last_name = person.father.last_name
 					person.save()
-					return redirect('person_detail', person_id = person.mother.pk)
-				else:
-					person.save()
-					return redirect('person_detail', person_id = person.pk)
-		elif request.method == "GET":
-			# Render Empty Form
-			form = PersonForm()
-		return render(request, 'app/person_form.html', {'form': form,
-			'heading': 'إضافة شخص جديد', 'button_label': 'إضافة'})
+			return redirect('person_detail', person_id = person_id)
+		elif request.method == 'GET':
+			return render(request, 'app/person_new.html', {'formset':PersonFormset,})
 	else:
 		return redirect('tree_login', tree_id = person.tree.pk)
 
@@ -144,8 +169,7 @@ def person_edit(request, person_id):
 				return redirect('person_detail', person_id = person.pk)
 		elif request.method == "GET":
 			form = PersonForm(instance=person)
-		return render(request, 'app/person_form.html', {'person': person, 'form': form,
-			'heading': 'تعديل معلومات الشخص', 'button_label': 'تعديل'})
+		return render(request, 'app/person_edit.html', {'person': person, 'form': form,})
 	else:
 		return redirect('tree_login', tree_id = person.tree.pk)
 

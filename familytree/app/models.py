@@ -46,7 +46,7 @@ class PersonQuerySet(models.QuerySet):
 
 class Person(models.Model):	
 	tree = models.ForeignKey('Tree', related_name='tree', on_delete=models.PROTECT)
-	first_name = models.CharField(max_length=50)
+	first_name = models.CharField(max_length=50, blank=False)
 	last_name = models.CharField(max_length=50, null=True, blank=True)
 	prefix = models.CharField(max_length=50, null=True, blank=True)
 	father = models.ForeignKey('Person',

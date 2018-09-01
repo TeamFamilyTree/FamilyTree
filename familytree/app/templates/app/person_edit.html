@@ -1,0 +1,15 @@
+{% extends 'app/base.html' %}
+{% block top_bar %}
+    {% with search=True %}
+    {{ block.super}}
+    {% endwith %}
+{% endblock top_bar %}
+
+{% block content %}
+<h4> تعديل معلومات الشخص </h4>
+
+<form method="POST" id="edit-person-form">{% csrf_token %}
+	{{ form.as_table }}
+	<button type="submit" value="Submit" class="button">تعديل</button>
+</form>
+{% endblock %}
