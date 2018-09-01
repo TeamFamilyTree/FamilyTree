@@ -5,6 +5,9 @@
     {% endwith %}
 {% endblock top_bar %}
 
+{% with layout_header=True %}
+{{ block.super }}
+{% endwith %}
 {% block content %}
 
 <h4>الدخول إلى شجرة عائلة {{tree_name}}</4>
@@ -17,4 +20,7 @@
 	<button type="submit" class="success button">دخول</button>
 </form>
 
-{% endblock %}
+{% with layout_footer=True %}
+{{ block.super }}
+{% endwith %}
+{% endblock content %}

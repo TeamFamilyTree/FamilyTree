@@ -6,6 +6,9 @@
 {% endblock top_bar %}
 
 {% block content %}
+{% with layout_header=True %}
+{{ block.super }}
+{% endwith %}
 
 <h3> إضافة جد العائلة </h3>
 
@@ -13,4 +16,8 @@
 	{{ form.as_p }}
 	<button type="submit" class="success button">إضافة</button>
 </form>
-{% endblock %}
+
+{% with layout_footer=True %}
+{{ block.super }}
+{% endwith %}
+{% endblock content %}

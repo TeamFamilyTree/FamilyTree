@@ -6,6 +6,9 @@
 {% endblock top_bar %}
 
 {% block content %}
+{% with layout_header=True %}
+{{ block.super }}
+{% endwith %}
 
 <div>
     <h2>زواج جديد لشخص خارج العائلة </h2>
@@ -15,4 +18,8 @@
         <button type="submit" value="Submit" class="button">إضافة</button>
     </form>
 </div>
-{% endblock %}
+
+{% with layout_footer=True %}
+{{ block.super }}
+{% endwith %}
+{% endblock content %}

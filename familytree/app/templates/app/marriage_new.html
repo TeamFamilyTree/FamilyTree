@@ -6,11 +6,10 @@
 {% endblock top_bar %}
 
 {% block content %}
+{% with layout_header=True %}
+{{ block.super }}
+{% endwith %}
 
-<!-- <div class="grid-x grid-margin-x">
-  <div class="medium-6 large-4 cell"></div>
-  <div class="medium-6 large-8 cell"></div>
-</div> -->
 <div>
     <h1> زواج جديد </h1>
         <div>
@@ -19,9 +18,11 @@
                 <button type="submit" value="Submit" class="button">إنشاء</button>
             </form>
             <a href="{% url 'marriage_to_new_person' person_id=person_id %}" class="button">الشخص من خارج العائلة</a>
-            {% endblock %}
 
         </div>
 </div>
 
-
+{% with layout_footer=True %}
+{{ block.super }}
+{% endwith %}
+{% endblock content %}

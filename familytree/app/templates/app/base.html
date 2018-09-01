@@ -13,7 +13,7 @@
 	</head>
 
     <body>
-        <!-- Top -->
+        <!-- Top Bar -->
         {% block top_bar %}
         <div class="top-bar">
             <div class="top-bar-left">
@@ -47,29 +47,27 @@
         {% endblock top_bar %}
         
         
-        <!-- content -->
-         
-       
-                    {% block content %}
-                    {% endblock content %}
-<<<<<<< HEAD
-
-         
-              
-        
-        <!-- Footer 
-        <footer>
-        
-        </footer>
--->
-=======
+        <!-- Content -->
+        {% block content %}
+        {% if layout_header %}
+        <div class="grid-container bg">
+            <br>
+            <div class="grid-x grid-margin-x">
+                <div class="cell small-1">
+                </div>
+                <div class="cell small-10">
+        {% endif %}
+                <!-- Position of content -->
+        {% if layout_footer %}
                 </div>
                 <div class="cell small-1">
                 </div>
             </div>
         </div>
+        {% endif %}
+        {% endblock content %}
 
->>>>>>> formset-test
+
         <script src="{% static 'javascript/vendor/jquery.js' %}"></script>
         <script src="{% static 'javascript/vendor/what-input.js' %}"></script>
         <script src="{% static 'javascript/vendor/foundation.js' %}"></script>

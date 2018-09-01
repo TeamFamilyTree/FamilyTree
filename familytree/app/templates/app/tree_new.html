@@ -4,8 +4,11 @@
     {{ block.super}}
     {% endwith %}
 {% endblock top_bar %}
-{% block content %}
 
+{% block content %}
+{% with layout_header=True %}
+{{ block.super }}
+{% endwith %}
 <div>
     <div>
         <h2> إنشاء شجرة جديدة </h2>
@@ -17,5 +20,8 @@
         </form>
     </div>
 </div>
-  
-{% endblock %}
+
+{% with layout_footer=True %}
+{{ block.super }}
+{% endwith %}
+{% endblock content %}

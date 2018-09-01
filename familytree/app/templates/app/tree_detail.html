@@ -6,7 +6,9 @@
 {% endblock top_bar %}
 
 {% block content %}
-
+{% with layout_header=True %}
+{{ block.super }}
+{% endwith %}
 <div class="grid-x">
     <div class="cell small-12">
         <h2> شجرة عائلة {{ root.tree.name }}</h2>
@@ -42,5 +44,7 @@
         {% endfor %}
     </div>
 </div>
-
-{% endblock %}
+{% with layout_footer=True %}
+{{ block.super }}
+{% endwith %}
+{% endblock content %}

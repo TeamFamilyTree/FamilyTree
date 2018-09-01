@@ -6,6 +6,10 @@
 {% endblock top_bar %}
 
 {% block content %}
+{% with layout_header=True %}
+{{ block.super }}
+{% endwith %}
+
 <h4> نتائج البحث في شجرة <a href="{% url 'tree_detail' tree_id=person.tree.id %}">{{ person.tree.name }}</a></h4>
  
  <form type="GET" action="{% url 'person_search' tree_id=person.tree.id %}">
@@ -26,4 +30,7 @@
 {% endif %}
 {% endfor %}
 
-{% endblock %}
+{% with layout_footer=True %}
+{{ block.super }}
+{% endwith %}
+{% endblock content %}

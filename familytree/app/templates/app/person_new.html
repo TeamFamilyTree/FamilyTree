@@ -6,6 +6,10 @@
 {% endblock top_bar %}
 
 {% block content %}
+{% with layout_header=True %}
+{{ block.super }}
+{% endwith %}
+
 <h4> إضافة شخص جديد </h4>
 
 <form method="post">
@@ -37,4 +41,8 @@
         </div>
 	</div>
 </form>
-{% endblock %}
+
+{% with layout_footer=True %}
+{{ block.super }}
+{% endwith %}
+{% endblock content %}

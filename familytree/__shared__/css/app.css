@@ -1,17 +1,5 @@
-
-<<<<<<< HEAD
-* {
-    /*font-family:*/
-    font-size: 1.2rem;
-    color: #3b3b3b;
-    font-family: 'Tajawal';
-}
-/* Element Selectors ------------ */
-
-/* Color Palette:
-=======
 /* Color Palette: (OUTDATED)
->>>>>>> formset-test
+
     #585b6d -> Dark Grey
     #999f9a -> Grey
     #abc9be -> Pastel Green
@@ -19,16 +7,11 @@
     #e8d7bd -> Biege
 */
 
-<<<<<<< HEAD
-.bg, body {
-    background-color: whitesmoke;
-}
-=======
 /* New color palette:
     background  -> #f7f7f7
     top bar     -> #b8bf95
 */
->>>>>>> formset-test
+
 
 /**************    General    **************/
 
@@ -62,7 +45,6 @@ h2 {
 }
 /*-- Backgrounds --*/
 .bg, body {
-    /*old background-color: #e6e6e6;*/
     background-color: #f7f7f7;
 }
 footer {
@@ -135,19 +117,9 @@ input[type=text], select{
     -moz-border-radius: 4px;
     border-radius: 4px;
 }
-<<<<<<< HEAD
 
-.button {
-   background-color: #d5a5a5;
-   color: #ededed;
-   font-weight: bold;
-   padding: 0.6rem;
-    margin: 5%;
-    
-=======
 input:disabled {
   background: #dddddd;
->>>>>>> formset-test
 }
 
 input:disabled-label {
@@ -190,7 +162,7 @@ div.person-form {
 
 .top-bar, .top-bar > div > ul {
     /*background-color: #999f9a;*/
-    background-color: #b8bf95;
+    background-color: #e8d7bd;
 }
 @font-face {
     font-family: 'Adobe-arabic-shin';
@@ -228,7 +200,25 @@ li.menu-text {
     margin: 0.5rem;
     
 }
+.hero {
+    background-color: #e8d7bd ;
+    padding: 2rem 2rem;
+}
 
+.error {
+    border-color: red;
+}
+
+.main {
+    padding: 5%;
+    margin: 1%;
+}
+
+.newtr {
+    margin-left: 10%;
+    text-align: center;
+    height: 50px;
+}
 /**************  Tree Detail  **************/
 .browse-list-root, .browse-list-root > a {
     font-size: 1.8rem;
@@ -277,25 +267,4 @@ li.menu-text {
 
 
 
-<<<<<<< HEAD
-.hero {
-    background-color: #e8d7bd ;
-    padding: 2rem 2rem;
-}
 
-.error {
-    border-color: red;
-}
-
-.main {
-    padding: 5%;
-    margin: 1%;
-}
-
-.newtr {
-    margin-left: 10%;
-    text-align: center;
-    height: 50px;
-}
-=======
->>>>>>> formset-test

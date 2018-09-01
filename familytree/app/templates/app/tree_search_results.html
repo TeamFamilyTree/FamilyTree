@@ -6,6 +6,10 @@
 {% endblock top_bar %}
 
 {% block content %}
+{% with layout_header=True %}
+{{ block.super }}
+{% endwith %}
+
 <h4> نتائج البحث في أشجار سنديان</h4>
 
 <form type="GET" action="{% url 'tree_search' %}">
@@ -16,4 +20,7 @@
 <p><a href="{% url 'tree_detail' tree_id=tree.id %}">شجرة {{ tree.name }}</a></p>
 {% endfor %}
 
-{% endblock %}
+{% with layout_footer=True %}
+{{ block.super }}
+{% endwith %}
+{% endblock content %}

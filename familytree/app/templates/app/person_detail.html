@@ -6,6 +6,9 @@
 {% endblock top_bar %}
 
 {% block content %}
+{% with layout_header=True %}
+{{ block.super }}
+{% endwith %}
 
 <div>
     <!-- Tree name -->
@@ -85,5 +88,7 @@
     {% endif %}
 
 </div>
-
-{% endblock %}
+{% with layout_footer=True %}
+{{ block.super }}
+{% endwith %}
+{% endblock content %}

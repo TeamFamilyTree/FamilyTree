@@ -6,10 +6,18 @@
 {% endblock top_bar %}
 
 {% block content %}
+{% with layout_header=True %}
+{{ block.super }}
+{% endwith %}
+
 <h4> تعديل معلومات الشخص </h4>
 
 <form method="POST" id="edit-person-form">{% csrf_token %}
 	{{ form.as_table }}
 	<button type="submit" value="Submit" class="button">تعديل</button>
 </form>
-{% endblock %}
+
+{% with layout_footer=True %}
+{{ block.super }}
+{% endwith %}
+{% endblock content %}
