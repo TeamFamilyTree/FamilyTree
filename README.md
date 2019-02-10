@@ -6,6 +6,6 @@ Featuring an intuitive and easy way to create a tree, add and browse members, Si
 
 
 ## Built with:
-* [Django](https://www.djangoproject.com) - web framework, uses Java for back-end, Scala for front (templating)
+* [Django](https://www.djangoproject.com) - Python web framework
 * [Zurb Foundation](https://foundation.zurb.com) - CSS framework
 * [PostgreSQL](https://www.postgresql.org) - Back-end database
